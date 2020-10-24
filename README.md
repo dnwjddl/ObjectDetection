@@ -1,2 +1,2 @@
 # ObjectDetection
-studying Object Detection
+To study Object Detection
