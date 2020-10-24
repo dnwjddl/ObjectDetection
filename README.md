@@ -1,5 +1,5 @@
 # ObjectDetection
-To study Object Detection
+To study Object Detection with YOLO
 
 ## cvYOLO
 - cvlib을 이용한 YOLO 사용
