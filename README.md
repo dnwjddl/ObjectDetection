@@ -2,6 +2,7 @@
 To study Object Detection with YOLO 
 
 ## SSD
+논문의 SSD Structure 직접 짜보기
 ### Model Structure
 ![image](https://user-images.githubusercontent.com/72767245/97295225-5d078d80-1892-11eb-9a2e-d59aa99d49ce.png)
 
