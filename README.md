@@ -1,5 +1,5 @@
 # ObjectDetection
-To study Object Detection with YOLO 
+To study Object Detection with YOLO  
 
 ## SSD
 논문의 SSD Structure 직접 짜보기
