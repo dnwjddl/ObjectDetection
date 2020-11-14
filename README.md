@@ -11,7 +11,7 @@ To study Object Detection with YOLO
 ### VGG19 + Auxilary Convolutional Layers
 <div>
   <img src ="https://user-images.githubusercontent.com/72767245/97295251-65f85f00-1892-11eb-9657-da7936493d3e.png" width="50%">
-  <img src ="https://user-images.githubusercontent.com/72767245/97295263-698be600-1892-11eb-952b-890975592614.png" width="20%">
+  <img src ="https://user-images.githubusercontent.com/72767245/97295263-698be600-1892-11eb-952b-890975592614.png" width="30%">
 </div>
 
 ## cvYOLO
