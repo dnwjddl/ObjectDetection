@@ -18,3 +18,4 @@ To study Object Detection with YOLO
 ### 결과값 
 ![result](https://user-images.githubusercontent.com/72767245/97080707-5d0c5100-1638-11eb-8208-fdae6ea27dc2.jpg width="30%")
 
+<img src = "https://user-images.githubusercontent.com/72767245/97080707-5d0c5100-1638-11eb-8208-fdae6ea27dc2.jpg" width= "30%">
