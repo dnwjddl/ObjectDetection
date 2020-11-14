@@ -1,4 +1,4 @@
-# ObjectDetection 
+# ObjectDetection  
 To study Object Detection with YOLO  
 
 ## SSD
