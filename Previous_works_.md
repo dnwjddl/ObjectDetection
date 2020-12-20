@@ -66,8 +66,7 @@ Ground Truth 에 해당하는 박스
 <br>
 x,y는 점이므로, 이미지의 크기와 상관없이 위치만 이동시켜주면 됨<br>
 반면, 너비와 높이는 이미지의 크기에 비례하여 조정을 시켜주어야 함.<br>
-![image](https://user-images.githubusercontent.com/72767245/102719056-01f09500-432f-11eb-933e-02add80d63ab.png)
-
+<img src="https://user-images.githubusercontent.com/72767245/102719056-01f09500-432f-11eb-933e-02add80d63ab.png" width="20%"><br>
 
 **학습을 통해 얻고자 하는 함수는 d함수임** <br>
 φ(Pi)는 VGG넷의 pool5를 거친 피쳐맵으로, 원래의 VGG에서는 이를 쫙 펴서 4096 차원의 벡터로 만든 다음 FC에 넘겨줌. 즉, φ(Pi)를 4096 차원 벡터라고 보면 w*역시 4096 차원 벡터이다. 
