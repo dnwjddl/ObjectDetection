@@ -68,15 +68,15 @@ x,y는 점이므로, 이미지의 크기와 상관없이 위치만 이동시켜�
 ![image](https://user-images.githubusercontent.com/72767245/102718655-9a394a80-432c-11eb-8e19-56b87f2adf12.png)
 
 **학습을 통해 얻고자 하는 함수는 d함수임** <br>
-함수에 학습 가능한 웨이트 벡터를 주어 계산해야 함
+φ(Pi)는 VGG넷의 pool5를 거친 피쳐맵으로, 원래의 VGG에서는 이를 쫙 펴서 4096 차원의 벡터로 만든 다음 FC에 넘겨줌. 즉, φ(Pi)를 4096 차원 벡터라고 보면 w*역시 4096 차원 벡터이다. 
 ![image](https://user-images.githubusercontent.com/72767245/102718700-d79dd800-432c-11eb-9e2e-ead3bea134bb.png)
 <br>
+이 둘을 곱해서 구하고 싶은 값은 x, y, w, h로 이는 모두 0에서 1 사이의 값입니다. (각각을 바운딩 박스의 너비와 높이로 나누어 주므로) 즉, 0과 1 사이의 바운딩 박스 조정 값을 구하기 위해서 4096 차원의 벡터를 학습시키는 것입니다. <br>
 MSE 에러함수에 L2 normalization 추가한 형태<br>
 ![image](https://user-images.githubusercontent.com/72767245/102718712-e84e4e00-432c-11eb-9d80-4fb08057caae.png)
 <br>
 t는 P를 G로 이동시키기 위해서 필요한 이동량을 의미하며 식으로 나타내면 아래와 같다.<br>
 ![image](https://user-images.githubusercontent.com/72767245/102718749-0caa2a80-432d-11eb-8d28-6c311a0f3e7b.png)<br>
-
 **CNN을 통과하여 추출된 벡터 x,y,w,h를 조정하는 함수의 weight를 곱해서 바운딩 박스를 조정해주는 선형회귀를 학습시키는 것**
 
 ### 학습이 일어나는 부분
