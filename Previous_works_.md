@@ -61,16 +61,17 @@ Ground Truth 에 해당하는 박스
 
 **목표: P에 해당하는 박스를 최대한 G에 가깝도록 이동시키는 함수** <br>
 박스가 input으로 들어왔을 때, x,y, w,h를 각각 이동시켲는 함수들 표현<br>
-<img src="https://user-images.githubusercontent.com/72767245/102718635-7fff6c80-432c-11eb-9d5f-1fb15b6a69b8.png" width="20%"><br>
+<img src="https://user-images.githubusercontent.com/72767245/102718635-7fff6c80-432c-11eb-9d5f-1fb15b6a69b8.png" width="40%"><br>
 
 <br>
 x,y는 점이므로, 이미지의 크기와 상관없이 위치만 이동시켜주면 됨<br>
 반면, 너비와 높이는 이미지의 크기에 비례하여 조정을 시켜주어야 함.<br>
-<img src="https://user-images.githubusercontent.com/72767245/102719056-01f09500-432f-11eb-933e-02add80d63ab.png" width="20%"><br>
+<img src="https://user-images.githubusercontent.com/72767245/102719056-01f09500-432f-11eb-933e-02add80d63ab.png" width="50%"><br>
 
 **학습을 통해 얻고자 하는 함수는 d함수임** <br>
 φ(Pi)는 VGG넷의 pool5를 거친 피쳐맵으로, 원래의 VGG에서는 이를 쫙 펴서 4096 차원의 벡터로 만든 다음 FC에 넘겨줌. 즉, φ(Pi)를 4096 차원 벡터라고 보면 w*역시 4096 차원 벡터이다. 
-![image](https://user-images.githubusercontent.com/72767245/102718700-d79dd800-432c-11eb-9e2e-ead3bea134bb.png)
+<br>
+<img src="https://user-images.githubusercontent.com/72767245/102718700-d79dd800-432c-11eb-9e2e-ead3bea134bb.png" width="30%"><br>
 <br>
 이 둘을 곱해서 구하고 싶은 값은 x, y, w, h로 이는 모두 0에서 1 사이의 값입니다. (각각을 바운딩 박스의 너비와 높이로 나누어 주므로) 즉, 0과 1 사이의 바운딩 박스 조정 값을 구하기 위해서 4096 차원의 벡터를 학습시키는 것입니다. <br>
 MSE 에러함수에 L2 normalization 추가한 형태<br>
