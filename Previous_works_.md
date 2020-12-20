@@ -54,14 +54,15 @@ SVM을 통과하여 각각의 박스들은 어떤 물체일 확률(Score)값을 
 물체가 있을 법한 위치를 찾고, 해당 물체의 종류를 판별할 수 있는 Classifier모델을 학습시킴. <br>
 
 박스 표기법
-![image](https://user-images.githubusercontent.com/72767245/102718596-56dedc00-432c-11eb-8386-c3e482c9b59d.png)
+<img src="https://user-images.githubusercontent.com/72767245/102718596-56dedc00-432c-11eb-8386-c3e482c9b59d.png" width="20%">
 
 Ground Truth 에 해당하는 박스
-![image](https://user-images.githubusercontent.com/72767245/102718612-68c07f00-432c-11eb-850b-7ab333c8338c.png)<br>
+<img src="https://user-images.githubusercontent.com/72767245/102718612-68c07f00-432c-11eb-850b-7ab333c8338c.png" width="20%"><br>
 
 **목표: P에 해당하는 박스를 최대한 G에 가깝도록 이동시키는 함수** <br>
 박스가 input으로 들어왔을 때, x,y, w,h를 각각 이동시켲는 함수들 표현<br>
-![image](https://user-images.githubusercontent.com/72767245/102718635-7fff6c80-432c-11eb-9d5f-1fb15b6a69b8.png)
+<img src="https://user-images.githubusercontent.com/72767245/102718635-7fff6c80-432c-11eb-9d5f-1fb15b6a69b8.png" width="20%"><br>
+
 <br>
 x,y는 점이므로, 이미지의 크기와 상관없이 위치만 이동시켜주면 됨<br>
 반면, 너비와 높이는 이미지의 크기에 비례하여 조정을 시켜주어야 함.<br>
