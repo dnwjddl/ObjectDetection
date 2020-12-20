@@ -40,45 +40,42 @@ CNN을 통해 추출한 벡터를 각각 클래스 별로 SVM Classifier를 학�
 "그냥 CNN Classifier를 쓰는 것이 SVM을 썼을 때보다 mAP성능이 낮아짐. 이는 아마도 fine tuning 과정에서 물체의 위치 정보가 유실되고 무작위로 추출된 샘플을 학습하여 발생한 것으로 보임"
 
 #### 세번째 -1 stage, Non-Maximum Suppression - IoU
-SVM을 통과하여 각각의 박스들은 어떤 물체일 확률(Score)값을 가지게 됨
-가장 높은 score을 가진 박스만 남기고 나머지는 제거 <Non-Maximum Suppression>
+SVM을 통과하여 각각의 박스들은 어떤 물체일 확률(Score)값을 가지게 됨 <br>
+가장 높은 score을 가진 박스만 남기고 나머지는 제거 <Non-Maximum Suppression> <br>
 
-서로 다른 두 박스가 동일한 물체에 쳐져있는지 확인하는 방법(IoU: Intersection over Union)
-![image](https://user-images.githubusercontent.com/72767245/102718320-dc618c80-432a-11eb-892f-996788e62473.png)
+서로 다른 두 박스가 동일한 물체에 쳐져있는지 확인하는 방법(IoU: Intersection over Union) <br>
+![image](https://user-images.githubusercontent.com/72767245/102718320-dc618c80-432a-11eb-892f-996788e62473.png) <br>
 -> 두 박스의 교집합을 합집합으로 나눠준 값
-
+<br>
 **논문에서는 IoU가 0.5보다 크면 동일한 물체의 대상으로 판별**
 
   
 #### 세번째 -2 stage, Bounding Box Regression(위치 교정)
-물체가 있을 법한 위치를 찾고, 해당 물체의 종류를 판별할 수 있는 Classifier모델을 학습시킴.
+물체가 있을 법한 위치를 찾고, 해당 물체의 종류를 판별할 수 있는 Classifier모델을 학습시킴. <br>
 
 박스 표기법
 ![image](https://user-images.githubusercontent.com/72767245/102718596-56dedc00-432c-11eb-8386-c3e482c9b59d.png)
 
 Ground Truth 에 해당하는 박스
-![image](https://user-images.githubusercontent.com/72767245/102718612-68c07f00-432c-11eb-850b-7ab333c8338c.png)
+![image](https://user-images.githubusercontent.com/72767245/102718612-68c07f00-432c-11eb-850b-7ab333c8338c.png)<br>
 
-**목표: P에 해당하는 박스를 최대한 G에 가깝도록 이동시키는 함수**
-박스가 input으로 들어왔을 때, x,y, w,h를 각각 이동시켲는 함수들 표현
+**목표: P에 해당하는 박스를 최대한 G에 가깝도록 이동시키는 함수** <br>
+박스가 input으로 들어왔을 때, x,y, w,h를 각각 이동시켲는 함수들 표현<br>
 ![image](https://user-images.githubusercontent.com/72767245/102718635-7fff6c80-432c-11eb-9d5f-1fb15b6a69b8.png)
-
-x,y는 점이므로, 이미지의 크기와 상관없이 위치만 이동시켜주면 됨
-반면, 너비와 높이는 이미지의 크기에 비례하여 조정을 시켜주어야 함.
+<br>
+x,y는 점이므로, 이미지의 크기와 상관없이 위치만 이동시켜주면 됨<br>
+반면, 너비와 높이는 이미지의 크기에 비례하여 조정을 시켜주어야 함.<br>
 ![image](https://user-images.githubusercontent.com/72767245/102718655-9a394a80-432c-11eb-8e19-56b87f2adf12.png)
 
-**학습을 통해 얻고자 하는 함수는 d함수임** 
+**학습을 통해 얻고자 하는 함수는 d함수임** <br>
 함수에 학습 가능한 웨이트 벡터를 주어 계산해야 함
 ![image](https://user-images.githubusercontent.com/72767245/102718700-d79dd800-432c-11eb-9e2e-ead3bea134bb.png)
-
-MSE 에러함수에 L2 normalization 추가한 형태
+<br>
+MSE 에러함수에 L2 normalization 추가한 형태<br>
 ![image](https://user-images.githubusercontent.com/72767245/102718712-e84e4e00-432c-11eb-9d80-4fb08057caae.png)
-
-t는 P를 G로 이동시키기 위해서 필요한 이동량을 의미하며 식으로 나타내면 아래와 같다.
-![image](https://user-images.githubusercontent.com/72767245/102718749-0caa2a80-432d-11eb-8d28-6c311a0f3e7b.png)
-
-
-
+<br>
+t는 P를 G로 이동시키기 위해서 필요한 이동량을 의미하며 식으로 나타내면 아래와 같다.<br>
+![image](https://user-images.githubusercontent.com/72767245/102718749-0caa2a80-432d-11eb-8d28-6c311a0f3e7b.png)<br>
 
 **CNN을 통과하여 추출된 벡터 x,y,w,h를 조정하는 함수의 weight를 곱해서 바운딩 박스를 조정해주는 선형회귀를 학습시키는 것**
 
