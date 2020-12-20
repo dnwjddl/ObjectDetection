@@ -94,6 +94,8 @@ R-CNN의 단점을 보완하고자 제안된 연구
 # SPPNet
 ![image](https://user-images.githubusercontent.com/72767245/102716951-796bf780-4322-11eb-8fe3-867b3a206164.png)
 ### 기존의 CNN 아키텍처는 입력 이미지가 고정되어야 했다(227x227) -> 물체의 일부분이 잘리거나, 생김새가 달라짐
+![image](https://user-images.githubusercontent.com/72767245/102719391-38c7aa80-4331-11eb-8948-45a4754a9c30.png)
+
 ### SPPNet은 R-CNN에서 가장 크게 나타나는 속도 저하의 원인인 각 region proposal 마다의 CNN feature map 생성을 보완하였고 이를 통해 속도 개선을 하게 됨
 ### region proposal에 바로 CNN을 적용하는 것이 아니라 이미지에 우선 CNN을 적용하여 생성한 feature map을 region proposal에 사용했기 때문
 
