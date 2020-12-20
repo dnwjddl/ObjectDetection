@@ -73,7 +73,7 @@ x,y는 점이므로, 이미지의 크기와 상관없이 위치만 이동시켜�
 <br>
 이 둘을 곱해서 구하고 싶은 값은 x, y, w, h로 이는 모두 0에서 1 사이의 값입니다. (각각을 바운딩 박스의 너비와 높이로 나누어 주므로) 즉, 0과 1 사이의 바운딩 박스 조정 값을 구하기 위해서 4096 차원의 벡터를 학습시키는 것입니다. <br>
 MSE 에러함수에 L2 normalization 추가한 형태<br>
-<img src="https://user-images.githubusercontent.com/72767245/102718712-e84e4e00-432c-11eb-9d80-4fb08057caae.png" width="20%"><br>
+<img src="https://user-images.githubusercontent.com/72767245/102718712-e84e4e00-432c-11eb-9d80-4fb08057caae.png" width="40%"><br>
 t는 P를 G로 이동시키기 위해서 필요한 이동량을 의미하며 식으로 나타내면 아래와 같다.<br>
 <img src="https://user-images.githubusercontent.com/72767245/102718749-0caa2a80-432d-11eb-8d28-6c311a0f3e7b.png" width="20%"><br>
 
