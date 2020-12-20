@@ -18,6 +18,33 @@
 - 각 region proposal 마다 고정된 크기의 박스 추출
 - 추출된 Feature map을 사용하여 SVM Classifier과 bounding box regression 진행
 
+#### 첫번째 stage, Region Proposal
+- Region proposal, 주어진 이미지에서 물체가 있을 법한 위치를 찾는 것
+- Selective Search라는 룰 베이스 알고리즘을 적용하여 2천개의 물체가 있을 법한 박스를 찾는다.
+- Selective Search는 주변 픽셀 간의 유사도를 기준으로 Segmentation을 만들고, 이를 기준으로 물체가 있을 법한 박스를 추론
+**RCNN 이후 Region Proposal 과정은 뉴럴 네트워크가 수행하도록 발전함**
+
+#### 두번째와 세번째 stage, Feature Extraction
+- Selective Search를 통해서 찾아낸 2천개의 박스 영역은 227 x 227 크기로 리사이즈(warp)
+- Image Classification으로 미리 학습되어 있는 CNN 모델을 통과하여  4096크기의 특징 벡터를 추출
+
+- 이미지넷 데이터로 미리 학습된 CNN 모델을 가지고 온 다음, fine tune 하는 방식을 취함
+- Fine tune시에는 실제 Object Detection을 적용할 데이터 셋에서 ground truth에 해당하는 이미지들을 가져와 학습시켜야함
+
+- 각 CNN 레이어 층에서 추출된 벡터로 SVM Classifier를 학습시킴
+
+**이미지넷으로 학습된 CNN을 가지고와서, Object Detection용 데이터 셋으로 fine tuning 한 뒤, selective search 결과로 뽑힌 이미지들로부터 특징 벡터 추출**
+
+#### 세번째 stage, Classification
+CNN을 통해 추출한 벡터를 각각 클래스 별로 SVM Classifier를 학습시킴
+"그냥 CNN Classifier를 쓰는 것이 SVM을 썼을 때보다 mAP성능이 낮아짐. 이는 아마도 fine tuning 과정에서 물체의 위치 정보가 유실되고 무작위로 추출된 샘플을 학습하여 발생한 것으로 보임"
+
+#### 세번째 stage, Non-Maximum Suppression 
+SVM을 통과하여 각각의 박스들은 어떤 물체일 확률(Score)값을 가지게 됨
+가장 높은 score을 가진 박스만 남기고 나머지는 제거 <Non-Maximum Suppression>
+  
+
+
 ### R-CNN의 단점
 Selective search에 해당하는 region proposal 만큼 CNN을 돌려야함
 - **큰 저장 공간을 요구**
