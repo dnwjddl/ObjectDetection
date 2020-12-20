@@ -12,6 +12,7 @@
 4-1. 추출된 벡터를 가지고 각각의 클래스(Object 종류) 마다 학습시켜놓은 SVM Classifier통과
 4-2. Regressor을 통한 bounding box regression 진행(박스의 위치 조정)
 
+![image](https://user-images.githubusercontent.com/72767245/102719610-43367400-4332-11eb-8951-c8fb02fadcbe.png)
 
 세 단계의 multi-stage로 구성되어 있음
 - Selective Search을 통한 region proposal 생성
