@@ -35,15 +35,32 @@
 
 **이미지넷으로 학습된 CNN을 가지고와서, Object Detection용 데이터 셋으로 fine tuning 한 뒤, selective search 결과로 뽑힌 이미지들로부터 특징 벡터 추출**
 
-#### 세번째 stage, Classification
+#### 세번째 -1 stage, Classification
 CNN을 통해 추출한 벡터를 각각 클래스 별로 SVM Classifier를 학습시킴
 "그냥 CNN Classifier를 쓰는 것이 SVM을 썼을 때보다 mAP성능이 낮아짐. 이는 아마도 fine tuning 과정에서 물체의 위치 정보가 유실되고 무작위로 추출된 샘플을 학습하여 발생한 것으로 보임"
 
-#### 세번째 stage, Non-Maximum Suppression 
+#### 세번째 -1 stage, Non-Maximum Suppression - IoU
 SVM을 통과하여 각각의 박스들은 어떤 물체일 확률(Score)값을 가지게 됨
 가장 높은 score을 가진 박스만 남기고 나머지는 제거 <Non-Maximum Suppression>
-  
 
+서로 다른 두 박스가 동일한 물체에 쳐져있는지 확인하는 방법(IoU: Intersection over Union)
+![image](https://user-images.githubusercontent.com/72767245/102718320-dc618c80-432a-11eb-892f-996788e62473.png)
+-> 두 박스의 교집합을 합집합으로 나눠준 값
+
+**논문에서는 IoU가 0.5보다 크면 동일한 물체의 대상으로 판별**
+
+  
+#### 세번째 -2 stage, Bounding Box Regression(위치 교정)
+물체가 있을 법한 위치를 찾고, 해당 물체의 종류를 판별할 수 있는 Classifier모델을 학습시킴.
+
+
+
+**CNN을 통과하여 추출된 벡터 x,y,w,h를 조정하는 함수의 weight를 곱해서 바운딩 박스를 조정해주는 선형회귀를 학습시키는 것**
+
+### 학습이 일어나는 부분
+- 1. 이미지넷으로 이미 학습된 부분을 가져와 fine-tuning 하는 부분
+- 2. SVM Classifier를 학습시키는 부분
+- 3. Bounding Box Regression
 
 ### R-CNN의 단점
 Selective search에 해당하는 region proposal 만큼 CNN을 돌려야함
