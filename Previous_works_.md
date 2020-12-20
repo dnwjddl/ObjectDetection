@@ -110,3 +110,5 @@ R-CNN과 SPPnet의 장점을 가져오고 단점을 보완하고자 제안된 �
 
 참고
 <url>https://woosikyang.github.io/fast-rcnn.html</url>
+<url>https://yeomko.tistory.com/13</url>
+<url>https://lilianweng.github.io/lil-log/2017/12/31/object-recognition-for-dummies-part-3.html</url>
