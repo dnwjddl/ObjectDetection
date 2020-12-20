@@ -1,5 +1,8 @@
 # ObjectDetection  
-To study Object Detection with YOLO  
+To study Object Detection 
+
+## STUDY
+- R-CNN, SPPNet, Fast R-CNN, Faster R-CNN 에 대한 이론 공부
 
 ## SSD
 [SSD:Single Box MultiBox Detector](https://arxiv.org/pdf/1512.02325.pdf, "paper link")
