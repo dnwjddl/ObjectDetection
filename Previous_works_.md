@@ -62,8 +62,6 @@ Ground Truth 에 해당하는 박스
 **목표: P에 해당하는 박스를 최대한 G에 가깝도록 이동시키는 함수** <br>
 박스가 input으로 들어왔을 때, x,y, w,h를 각각 이동시켲는 함수들 표현<br>
 <img src="https://user-images.githubusercontent.com/72767245/102718635-7fff6c80-432c-11eb-9d5f-1fb15b6a69b8.png" width="40%"><br>
-
-<br>
 x,y는 점이므로, 이미지의 크기와 상관없이 위치만 이동시켜주면 됨<br>
 반면, 너비와 높이는 이미지의 크기에 비례하여 조정을 시켜주어야 함.<br>
 <img src="https://user-images.githubusercontent.com/72767245/102719056-01f09500-432f-11eb-933e-02add80d63ab.png" width="50%"><br>
