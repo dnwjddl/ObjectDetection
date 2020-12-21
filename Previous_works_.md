@@ -101,14 +101,10 @@ R-CNN의 단점을 보완하고자 제안된 연구
 #### 학습에서는 3배, 실제 사용시 10배-100배 속도 개선
 ![image](https://user-images.githubusercontent.com/72767245/102716951-796bf780-4322-11eb-8fe3-867b3a206164.png)
 
-![image](https://user-images.githubusercontent.com/72767245/102719391-38c7aa80-4331-11eb-8948-45a4754a9c30.png)
-
-### SPPNet은 R-CNN에서 가장 크게 나타나는 속도 저하의 원인인 각 region proposal 마다의 CNN feature map 생성을 보완하였고 이를 통해 속도 개선을 하게 됨
-### region proposal에 바로 CNN을 적용하는 것이 아니라 이미지에 우선 CNN을 적용하여 생성한 feature map을 region proposal에 사용했기 때문
-
+### 기존의 CNN 입력
 * Convolution filter들은 사실 입력 이미지의 고정이 필요하지 않다.
 * sliding window 방식으로 작동하기 때문에, 입력 이미지의 크기나 비율에 관계 없이 작동함 
-* 입력 이미지 크기의 고정이 필요한 이유는 컨볼루션 layer 이후에 이루어지는 fully connected layer가 고정된 크기의 입력을 받기 때문 -> Spatial Pyramid Pooling(SPP) 제안
+* 입력 이미지 크기의 고정이 필요한 이유는 컨볼루션 layer 이후에 이루어지는 fully connected layer가 고정된 크기의 입력을 받기 때문 -> **Spatial Pyramid Pooling(SPP) 제안**
 <br>
 * **입력 이미지의 크기 관계 없이 Conv layer을 통과시키고, FC layer 통과 전에 피쳐 맵들을 동일한 크기로 조절해주는 pooling을 적용하자**
 <br>
@@ -122,6 +118,15 @@ R-CNN의 단점을 보완하고자 제안된 연구
 3. 그 다음 FC layer 통과 -> 벡터 추출
 4-1. 앞서 추출한 벡터로 각 이미지 클래스 별로 binary SVM Classifier를 학습시킴
 4-2. 앞서 추출한 벡터로 bounding box regressor 학습 시킴
+
+
+
+#### R-CNN 방법과 SPPNet 방법 차이
+- R-CNN은 Image 영역(Selective Search 방법으로 수천개의 box)을 추출하고 warp 시킨다
+  - 원하지 않는 왜곡
+  - 이후 추출한 영역(2천개)를 CNN으로 학습
+  - 매우 느림(Time-consuming)
+- SPPNet은 Convolution 마지막 층에서 나온 Feature map을 분할하여 평균을 내고 고정된 크기로 만든다
 
 ### Spatial Pyramid Pooling
 
