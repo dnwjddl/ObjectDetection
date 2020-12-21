@@ -107,10 +107,10 @@ R-CNN의 단점을 보완하고자 제안된 연구
 * sliding window 방식으로 작동하기 때문에, 입력 이미지의 크기나 비율에 관계 없이 작동함 
 * 입력 이미지 크기의 고정이 필요한 이유는 컨볼루션 layer 이후에 이루어지는 fully connected layer가 고정된 크기의 입력을 받기 때문 -> **Spatial Pyramid Pooling(SPP) 제안**
 <br>
-* **입력 이미지의 크기 관계 없이 Conv layer을 통과시키고, FC layer 통과 전에 피쳐 맵들을 동일한 크기로 조절해주는 pooling을 적용하자**
+- **입력 이미지의 크기 관계 없이 Conv layer을 통과시키고, FC layer 통과 전에 피쳐 맵들을 동일한 크기로 조절해주는 pooling을 적용하자**
 <br>
-**이미지의 특징을 고스란히 간직한 feature map 얻기 가능. <br>
-사물의 크기 변화에 더 견고한 모델을 얻을 수 있음**
+- **이미지의 특징을 고스란히 간직한 feature map 얻기 가능. **
+  **사물의 크기 변화에 더 견고한 모델을 얻을 수 있음**
 <br>
 
 ### SPP 전체 흐름
