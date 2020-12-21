@@ -164,7 +164,7 @@ bin의 갯수: M <br>
 ###### SPP layer는 쉽게 말해서 이미지의 사이즈와 상관없이 특징을 잘 반영할 수 있도록 여러 크기의 bin을 만들고 그 bin값을 활용하는 구조입니다. 
 
 ### 차이점 도식화
-
+![image](https://user-images.githubusercontent.com/72767245/102813779-cb894780-440c-11eb-8ed9-e01f518a7ab0.png)
 
 ### SPPNet의 장점
 - 속도 향상
