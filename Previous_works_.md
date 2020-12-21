@@ -137,8 +137,7 @@ R-CNN의 단점을 보완하고자 제안된 연구
 - BoW(Bag of Word)라는 개념을 사용한 것인데, 간단하게 말하자면 특정 개체의 분류에 '굵은 소수'의 특징이 아닌 '작은 다수'의 특징에 의존
 - Spatial pyramid Matching 이라는 개념 사용
 ![image](https://user-images.githubusercontent.com/72767245/102811340-8c58f780-4408-11eb-913f-762e62ff51b2.png)
-<img src="https://user-images.githubusercontent.com/72767245/102811480-bad6d280-4408-11eb-98f9-d90e8f918582.png" width="20%">
-<img src="https://user-images.githubusercontent.com/72767245/102811717-2620a480-4409-11eb-8041-7ade0235a93a.png" width="30%">
+<img src="https://user-images.githubusercontent.com/72767245/102811480-bad6d280-4408-11eb-98f9-d90e8f918582.png" width="15%"> <img src="https://user-images.githubusercontent.com/72767245/102811717-2620a480-4409-11eb-8041-7ade0235a93a.png" width="30%">
 
 ![image](https://user-images.githubusercontent.com/72767245/102808997-95e06080-4404-11eb-97e2-34eb58aa3314.png)
 - 위의 진은 4x4, 2x2, 1x1 의 세가지 영역으로 제공
