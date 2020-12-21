@@ -134,32 +134,48 @@ R-CNN의 단점을 보완하고자 제안된 연구
 - SPPNet은 Convolution 마지막 층에서 나온 Feature map을 분할하여 평균을 내고 고정된 크기로 만든다
 
 ### Spatial Pyramid Pooling
-![image](https://user-images.githubusercontent.com/72767245/102808997-95e06080-4404-11eb-97e2-34eb58aa3314.png)
-- SPP-layer는 Conv layer에서 추출된 Feature를 입력으로 받고 이를 Spatial bin이라고 불리는 1*1, 2*2, 3*3, 4*4 등의 filter들로 잘라내어 pooling
-- feature map의 크기와 상관없이 bin의 사이즈를 미리 정해두면, window size와 stride를 변화시켜가면서 일정한 크기의 output을 FC layer에서 input으로 줄 수 있다.
-![image](https://user-images.githubusercontent.com/72767245/102810960-f755fe80-4407-11eb-8180-f9f3cbead894.png)
-
-- 각각의 결과를 Concatenate 하는데 이 과정에서 Feature Map Local 정보를 취합하여 RoI 탐색
-- 이건 BoW(Bag of Word)라는 개념을 사용한 것인데, 간단하게 말하자면 특정 개체의 분류에 '굵은 소수'의 특징이 아닌 '작은 다수'의 특징에 의존
-
-
+- BoW(Bag of Word)라는 개념을 사용한 것인데, 간단하게 말하자면 특정 개체의 분류에 '굵은 소수'의 특징이 아닌 '작은 다수'의 특징에 의존
+- Spatial pyramid Matching 이라는 개념 사용
 ![image](https://user-images.githubusercontent.com/72767245/102811340-8c58f780-4408-11eb-913f-762e62ff51b2.png)
 <img src="https://user-images.githubusercontent.com/72767245/102811480-bad6d280-4408-11eb-98f9-d90e8f918582.png" width="20%">
-<img src="https://user-images.githubusercontent.com/72767245/102811717-2620a480-4409-11eb-8041-7ade0235a93a.png" width="20%">
+<img src="https://user-images.githubusercontent.com/72767245/102811717-2620a480-4409-11eb-8041-7ade0235a93a.png" width="30%">
 
+![image](https://user-images.githubusercontent.com/72767245/102808997-95e06080-4404-11eb-97e2-34eb58aa3314.png)
+- 위의 진은 4x4, 2x2, 1x1 의 세가지 영역으로 제공
+- 각각을 하나의 **피라미드**라고함
+- 피라미드의 한칸을 **bin**이라고 함
+ex) feature map: 64x64x256 -> 4x4 피라미드의 bin 크기는? 64/4 = 16, 16x16 
 ###### 마지막 Pooling Layer를 SPP(Spatial Pyramid Pooling)로 대체 + 내부적으로 Global Max Pooling 사용
+###### 실제 실험에서 저자들은 1x1, 2x2, 3x3, 6x6의 총 4개의 피라미드로 SPP 적용
 ###### -> 분할하는 크기만 동일하면 똑같은 크기의 Vector가 출력됨
+
+**수학적으로 계산**
+feature map: 64x64x256 <br>
+채널의 크기: k = 256 <br>
+bin의 갯수: M <br>
+(16+4+1) = 21 = M <br>
+- output의 차원 kM차원 벡터
+<br>
+
+- SPP-layer는 Conv layer에서 추출된 Feature를 입력으로 받고 이를 Spatial bin이라고 불리는 1*1, 2*2, 3*3, 4*4 등의 filter들로 잘라내어 pooling
+
 
 ###### Convolution 마지막 층에서 나온 Feature Map을 분할하여 평균을 내고 고정 크기로 만듦
 ###### SPP layer는 쉽게 말해서 이미지의 사이즈와 상관없이 특징을 잘 반영할 수 있도록 여러 크기의 bin을 만들고 그 bin값을 활용하는 구조입니다. 
-###### SPP를 적용하여 고정된 크기의 Feature Vector 추출
+
+### 차이점 도식화
+
 
 ### SPPNet의 장점
 - 속도 향상
 - 고정된 이미지만을 필요로 하지 않는다.
 
 ### SPPNet의 한계점
-- R-CNN과 같은 학습 파이프라인을 가지고 있기 때문에 multi-stage로 학습이 진행 : 저장공간을 요구, 학습이 빠르게 진행되기 어렵.
+- R-CNN과 같은 학습 파이프라인을 가지고 있기 때문에 multi-stage로 학습이 진행 (fine-tuning, SVM training, Bounding Box Regression) // end-to-end 방식이 아님
+  - 저장공간을 요구
+  - 학습이 여전히 느림
+- 여전히 최종 classification은 binary SVM, Region Proposal은 Selective Search 사용
+  - SPP Pooling 이후에도 2천개의 RoI에 대해서 classification 연산을 적용하는 부분은 동일하게 적용
 - CNN의 파라미터가 학습이 되지 않기 때문에 Task에 맞는 fine-tuning이 어려워짐 // pretrained model
 
 <br>
