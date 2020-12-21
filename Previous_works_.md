@@ -107,21 +107,22 @@ R-CNN의 단점을 보완하고자 제안된 연구
 * sliding window 방식으로 작동하기 때문에, 입력 이미지의 크기나 비율에 관계 없이 작동함 
 * 입력 이미지 크기의 고정이 필요한 이유는 컨볼루션 layer 이후에 이루어지는 fully connected layer가 고정된 크기의 입력을 받기 때문 -> **Spatial Pyramid Pooling(SPP) 제안**
 <br>
-- **입력 이미지의 크기 관계 없이 Conv layer을 통과시키고, FC layer 통과 전에 피쳐 맵들을 동일한 크기로 조절해주는 pooling을 적용하자**
+ 
+**입력 이미지의 크기 관계 없이 Conv layer을 통과시키고, FC layer 통과 전에 피쳐 맵들을 동일한 크기로 조절해주는 pooling을 적용하자**<br>
 <br>
-- **이미지의 특징을 고스란히 간직한 feature map 얻기 가능. **
-  **사물의 크기 변화에 더 견고한 모델을 얻을 수 있음**
+**이미지의 특징을 고스란히 간직한 feature map 얻기 가능** <br>
+**사물의 크기 변화에 더 견고한 모델을 얻을 수 있음**<br>
 <br>
 
 ### SPP 전체 흐름
 
 ![image](https://user-images.githubusercontent.com/72767245/102809014-a09af580-4404-11eb-9468-33692864eff6.png)
 
-1. 전체 이미지를 미리 학습된 CNN을 통과시켜 feature map 추출
-2. Selective Search를 통해서 찾은 각각의 RoI들을 제 각기 크기와 비율이 다르다. 이에 SPP를 적용하여 고정된 크기의 Feature vector를 추출
-3. 그 다음 FC layer 통과 -> 벡터 추출
-4-1. 앞서 추출한 벡터로 각 이미지 클래스 별로 binary SVM Classifier를 학습시킴
-4-2. 앞서 추출한 벡터로 bounding box regressor 학습 시킴
+1. 전체 이미지를 미리 학습된 CNN을 통과시켜 feature map 추출 <br>
+2. Selective Search를 통해서 찾은 각각의 RoI들을 제 각기 크기와 비율이 다르다. 이에 SPP를 적용하여 고정된 크기의 Feature vector를 추출<br>
+3. 그 다음 FC layer 통과 -> 벡터 추출<br>
+4-1. 앞서 추출한 벡터로 각 이미지 클래스 별로 binary SVM Classifier를 학습시킴<br>
+4-2. 앞서 추출한 벡터로 bounding box regressor 학습 시킴<br>
 
 ![그림](https://user-images.githubusercontent.com/72767245/102808966-882adb00-4404-11eb-8fb8-3e80fef356f8.png)
 ##### CNN: Conv1 -> Conv2 -> Conv3 -> Conv4 -> Conv5 -> SPP -> FC6 -> FC 7 -> Softmax
@@ -135,20 +136,20 @@ R-CNN의 단점을 보완하고자 제안된 연구
 
 ### Spatial Pyramid Pooling
 - BoW(Bag of Word)라는 개념을 사용한 것인데, 간단하게 말하자면 특정 개체의 분류에 '굵은 소수'의 특징이 아닌 '작은 다수'의 특징에 의존
-- Spatial pyramid Matching 이라는 개념 사용
+- Spatial pyramid Matching 이라는 개념 사용<br>
 ![image](https://user-images.githubusercontent.com/72767245/102811340-8c58f780-4408-11eb-913f-762e62ff51b2.png)
 <img src="https://user-images.githubusercontent.com/72767245/102811480-bad6d280-4408-11eb-98f9-d90e8f918582.png" width="15%"> <img src="https://user-images.githubusercontent.com/72767245/102811717-2620a480-4409-11eb-8041-7ade0235a93a.png" width="30%">
 
-![image](https://user-images.githubusercontent.com/72767245/102808997-95e06080-4404-11eb-97e2-34eb58aa3314.png)
+![image](https://user-images.githubusercontent.com/72767245/102808997-95e06080-4404-11eb-97e2-34eb58aa3314.png)<br>
 - 위의 진은 4x4, 2x2, 1x1 의 세가지 영역으로 제공
 - 각각을 하나의 **피라미드**라고함
-- 피라미드의 한칸을 **bin**이라고 함
+- 피라미드의 한칸을 **bin**이라고 함 <br>
 ex) feature map: 64x64x256 -> 4x4 피라미드의 bin 크기는? 64/4 = 16, 16x16 
 ###### 마지막 Pooling Layer를 SPP(Spatial Pyramid Pooling)로 대체 + 내부적으로 Global Max Pooling 사용
 ###### 실제 실험에서 저자들은 1x1, 2x2, 3x3, 6x6의 총 4개의 피라미드로 SPP 적용
 ###### -> 분할하는 크기만 동일하면 똑같은 크기의 Vector가 출력됨
 
-**수학적으로 계산**
+**수학적으로 계산** <br>
 feature map: 64x64x256 <br>
 채널의 크기: k = 256 <br>
 bin의 갯수: M <br>
@@ -156,9 +157,7 @@ bin의 갯수: M <br>
 - output의 차원 kM차원 벡터
 <br>
 
-- SPP-layer는 Conv layer에서 추출된 Feature를 입력으로 받고 이를 Spatial bin이라고 불리는 1*1, 2*2, 3*3, 4*4 등의 filter들로 잘라내어 pooling
-
-
+##### SPP-layer는 Conv layer에서 추출된 Feature를 입력으로 받고 이를 Spatial bin이라고 불리는 1*1, 2*2, 3*3, 4*4 등의 filter들로 잘라내어 pooling
 ###### Convolution 마지막 층에서 나온 Feature Map을 분할하여 평균을 내고 고정 크기로 만듦
 ###### SPP layer는 쉽게 말해서 이미지의 사이즈와 상관없이 특징을 잘 반영할 수 있도록 여러 크기의 bin을 만들고 그 bin값을 활용하는 구조입니다. 
 
