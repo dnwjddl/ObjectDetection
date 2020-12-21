@@ -142,6 +142,11 @@ R-CNN의 단점을 보완하고자 제안된 연구
 - 이건 BoW(Bag of Word)라는 개념을 사용한 것인데, 간단하게 말하자면 특정 개체의 분류에 '굵은 소수'의 특징이 아닌 '작은 다수'의 특징에 의존
 
 
+![image](https://user-images.githubusercontent.com/72767245/102811340-8c58f780-4408-11eb-913f-762e62ff51b2.png)
+
+![image](https://user-images.githubusercontent.com/72767245/102811480-bad6d280-4408-11eb-98f9-d90e8f918582.png)
+![image](https://user-images.githubusercontent.com/72767245/102811717-2620a480-4409-11eb-8041-7ade0235a93a.png)
+
 ###### 마지막 Pooling Layer를 SPP(Spatial Pyramid Pooling)로 대체 + 내부적으로 Global Max Pooling 사용
 ###### -> 분할하는 크기만 동일하면 똑같은 크기의 Vector가 출력됨
 
