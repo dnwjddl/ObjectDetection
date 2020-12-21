@@ -113,13 +113,17 @@ R-CNN의 단점을 보완하고자 제안된 연구
 <br>
 
 ### SPP 전체 흐름
+
+![image](https://user-images.githubusercontent.com/72767245/102809014-a09af580-4404-11eb-9468-33692864eff6.png)
+
 1. 전체 이미지를 미리 학습된 CNN을 통과시켜 feature map 추출
 2. Selective Search를 통해서 찾은 각각의 RoI들을 제 각기 크기와 비율이 다르다. 이에 SPP를 적용하여 고정된 크기의 Feature vector를 추출
 3. 그 다음 FC layer 통과 -> 벡터 추출
 4-1. 앞서 추출한 벡터로 각 이미지 클래스 별로 binary SVM Classifier를 학습시킴
 4-2. 앞서 추출한 벡터로 bounding box regressor 학습 시킴
 
-
+![그림](https://user-images.githubusercontent.com/72767245/102808966-882adb00-4404-11eb-8fb8-3e80fef356f8.png)
+##### CNN: Conv1 -> Conv2 -> Conv3 -> Conv4 -> Conv5 -> SPP -> FC6 -> FC 7 -> Softmax
 
 #### R-CNN 방법과 SPPNet 방법 차이
 - R-CNN은 Image 영역(Selective Search 방법으로 수천개의 box)을 추출하고 warp 시킨다
@@ -129,12 +133,31 @@ R-CNN의 단점을 보완하고자 제안된 연구
 - SPPNet은 Convolution 마지막 층에서 나온 Feature map을 분할하여 평균을 내고 고정된 크기로 만든다
 
 ### Spatial Pyramid Pooling
+![image](https://user-images.githubusercontent.com/72767245/102808997-95e06080-4404-11eb-97e2-34eb58aa3314.png)
+- SPP-layer는 Conv layer에서 추출된 Feature를 입력으로 받고 이를 Spatial bin이라고 불리는 1*1, 2*2, 3*3, 4*4 등의 filter들로 잘라내어 pooling
+- feature map의 크기와 상관없이 bin의 사이즈를 미리 정해두면, window size와 stride를 변화시켜가면서 일정한 크기의 output을 FC layer에서 input으로 줄 수 있다.
 
-SPPnet은 Spatial Pyramid Pooling 이라는 특징을 같는 구조를 활용하여 임의 사이즈의 이미지를 모두 활용할 수 있도록 하였습니다. SPP layer는 쉽게 말해서 이미지의 사이즈와 상관없이 특징을 잘 반영할 수 있도록 여러 크기의 bin을 만들고 그 bin값을 활용하는 구조입니다. 결론적으로, SPPnet은 속도를 크게 향상 시켰고, 고정된 이미지만을 필요로 하지 않는다는 장점을 갖게 됩니다.
+- 각각의 결과를 Concatenate 하는데 이 과정에서 Feature Map Local 정보를 취합하여 RoI 탐색
+- 이건 BoW(Bag of Word)라는 개념을 사용한 것인데, 간단하게 말하자면 특정 개체의 분류에 '굵은 소수'의 특징이 아닌 '작은 다수'의 특징에 의존
 
-다만 한계점도 존재합니다. 우선 R-CNN과 같은 학습 파이프라인을 갖고 있기에 multi-stage로 학습이 진행됩니다. 따라서 저장 공간을 요구하게 되고 학습이 여전히 빠르게 진행되기는 어렵게 됩니다. 또한 위의 그림과 같이 CNN의 파라미터가 학습이 되지 못하기에 Task에 맞는 fine-tuning이 어려워집니다.
 
-R-CNN과 SPPnet의 장점을 가져오고 단점을 보완하고자 제안된 결과물이 바로 Fast R-CNN
+###### 마지막 Pooling Layer를 SPP(Spatial Pyramid Pooling)로 대체 + 내부적으로 Global Max Pooling 사용
+###### -> 분할하는 크기만 동일하면 똑같은 크기의 Vector가 출력됨
+
+###### Convolution 마지막 층에서 나온 Feature Map을 분할하여 평균을 내고 고정 크기로 만듦
+###### SPP layer는 쉽게 말해서 이미지의 사이즈와 상관없이 특징을 잘 반영할 수 있도록 여러 크기의 bin을 만들고 그 bin값을 활용하는 구조입니다. 
+###### SPP를 적용하여 고정된 크기의 Feature Vector 추출
+
+### SPPNet의 장점
+- 속도 향상
+- 고정된 이미지만을 필요로 하지 않는다.
+
+### SPPNet의 한계점
+- R-CNN과 같은 학습 파이프라인을 가지고 있기 때문에 multi-stage로 학습이 진행 : 저장공간을 요구, 학습이 빠르게 진행되기 어렵.
+- CNN의 파라미터가 학습이 되지 않기 때문에 Task에 맞는 fine-tuning이 어려워짐 // pretrained model
+
+<br>
+R-CNN과 SPPnet의 장점을 가져오고 단점을 보완하고자 제안된 결과물이 바로 **Fast R-CNN**
 
 # Fast R-CNN
 
