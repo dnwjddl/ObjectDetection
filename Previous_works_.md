@@ -99,7 +99,8 @@ R-CNN의 단점을 보완하고자 제안된 연구
 ## Spatial Pyramid Pooling이라는 특징을 가짐
 #### 각 region proposal 마다의 CNN feature map 생성(2천개의 feature map) => CNN을 적용하여 생성된 feature map을 region proposal 거침
 #### 학습에서는 3배, 실제 사용시 10배-100배 속도 개선
-![image](https://user-images.githubusercontent.com/72767245/102716951-796bf780-4322-11eb-8fe3-867b3a206164.png)
+![image](https://user-images.githubusercontent.com/72767245/102811903-7b5cb600-4409-11eb-8abf-34c7afc8eee7.png)
+
 
 ### 기존의 CNN 입력
 * Convolution filter들은 사실 입력 이미지의 고정이 필요하지 않다.
