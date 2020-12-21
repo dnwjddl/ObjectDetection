@@ -88,17 +88,42 @@ t는 P를 G로 이동시키기 위해서 필요한 이동량을 의미하며 식
 ### R-CNN의 단점
 Selective search에 해당하는 region proposal 만큼 CNN을 돌려야함
 - **큰 저장 공간을 요구**
-- **속도가 느림**
+- **속도가 느림** <br>
+
+기존의 CNN 아키텍처들은 모두 입력 이미지가 고정되어야 함(ex.224x224), 비율을 조정해야 했다.
+- 물체의 일부분이 잘리거나, 본래의 생김새와 달라지는 문제점
 
 R-CNN의 단점을 보완하고자 제안된 연구
 
 # SPPNet
+## Spatial Pyramid Pooling이라는 특징을 가짐
+#### 각 region proposal 마다의 CNN feature map 생성(2천개의 feature map) => CNN을 적용하여 생성된 feature map을 region proposal 거침
+#### 학습에서는 3배, 실제 사용시 10배-100배 속도 개선
 ![image](https://user-images.githubusercontent.com/72767245/102716951-796bf780-4322-11eb-8fe3-867b3a206164.png)
-### 기존의 CNN 아키텍처는 입력 이미지가 고정되어야 했다(227x227) -> 물체의 일부분이 잘리거나, 생김새가 달라짐
+
 ![image](https://user-images.githubusercontent.com/72767245/102719391-38c7aa80-4331-11eb-8948-45a4754a9c30.png)
 
 ### SPPNet은 R-CNN에서 가장 크게 나타나는 속도 저하의 원인인 각 region proposal 마다의 CNN feature map 생성을 보완하였고 이를 통해 속도 개선을 하게 됨
 ### region proposal에 바로 CNN을 적용하는 것이 아니라 이미지에 우선 CNN을 적용하여 생성한 feature map을 region proposal에 사용했기 때문
+
+* Convolution filter들은 사실 입력 이미지의 고정이 필요하지 않다.
+* sliding window 방식으로 작동하기 때문에, 입력 이미지의 크기나 비율에 관계 없이 작동함 
+* 입력 이미지 크기의 고정이 필요한 이유는 컨볼루션 layer 이후에 이루어지는 fully connected layer가 고정된 크기의 입력을 받기 때문 -> Spatial Pyramid Pooling(SPP) 제안
+<br>
+* **입력 이미지의 크기 관계 없이 Conv layer을 통과시키고, FC layer 통과 전에 피쳐 맵들을 동일한 크기로 조절해주는 pooling을 적용하자**
+<br>
+**이미지의 특징을 고스란히 간직한 feature map 얻기 가능. <br>
+사물의 크기 변화에 더 견고한 모델을 얻을 수 있음**
+<br>
+
+### SPP 전체 흐름
+1. 전체 이미지를 미리 학습된 CNN을 통과시켜 feature map 추출
+2. Selective Search를 통해서 찾은 각각의 RoI들을 제 각기 크기와 비율이 다르다. 이에 SPP를 적용하여 고정된 크기의 Feature vector를 추출
+3. 그 다음 FC layer 통과 -> 벡터 추출
+4-1. 앞서 추출한 벡터로 각 이미지 클래스 별로 binary SVM Classifier를 학습시킴
+4-2. 앞서 추출한 벡터로 bounding box regressor 학습 시킴
+
+### Spatial Pyramid Pooling
 
 SPPnet은 Spatial Pyramid Pooling 이라는 특징을 같는 구조를 활용하여 임의 사이즈의 이미지를 모두 활용할 수 있도록 하였습니다. SPP layer는 쉽게 말해서 이미지의 사이즈와 상관없이 특징을 잘 반영할 수 있도록 여러 크기의 bin을 만들고 그 bin값을 활용하는 구조입니다. 결론적으로, SPPnet은 속도를 크게 향상 시켰고, 고정된 이미지만을 필요로 하지 않는다는 장점을 갖게 됩니다.
 
