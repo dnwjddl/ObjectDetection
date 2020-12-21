@@ -136,6 +136,7 @@ R-CNN의 단점을 보완하고자 제안된 연구
 ![image](https://user-images.githubusercontent.com/72767245/102808997-95e06080-4404-11eb-97e2-34eb58aa3314.png)
 - SPP-layer는 Conv layer에서 추출된 Feature를 입력으로 받고 이를 Spatial bin이라고 불리는 1*1, 2*2, 3*3, 4*4 등의 filter들로 잘라내어 pooling
 - feature map의 크기와 상관없이 bin의 사이즈를 미리 정해두면, window size와 stride를 변화시켜가면서 일정한 크기의 output을 FC layer에서 input으로 줄 수 있다.
+![image](https://user-images.githubusercontent.com/72767245/102810960-f755fe80-4407-11eb-8180-f9f3cbead894.png)
 
 - 각각의 결과를 Concatenate 하는데 이 과정에서 Feature Map Local 정보를 취합하여 RoI 탐색
 - 이건 BoW(Bag of Word)라는 개념을 사용한 것인데, 간단하게 말하자면 특정 개체의 분류에 '굵은 소수'의 특징이 아닌 '작은 다수'의 특징에 의존
