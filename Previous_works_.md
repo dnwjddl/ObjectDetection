@@ -98,7 +98,7 @@ R-CNN의 단점을 보완하고자 제안된 연구
 # SPPNet
 ## Spatial Pyramid Pooling이라는 특징을 가짐
 #### 각 region proposal 마다의 CNN feature map 생성(2천개의 feature map) => CNN을 적용하여 생성된 feature map을 region proposal 거침
-#### 학습에서는 3배, 실제 사용시 10배-100배 속도 개선
+
 ![image](https://user-images.githubusercontent.com/72767245/102811903-7b5cb600-4409-11eb-8abf-34c7afc8eee7.png)
 
 
@@ -134,6 +134,7 @@ R-CNN의 단점을 보완하고자 제안된 연구
   - 매우 느림(Time-consuming)
 - SPPNet은 Convolution 마지막 층에서 나온 Feature map을 분할하여 평균을 내고 고정된 크기로 만든다
 
+#### 학습에서는 3배, 실제 사용시 10배-100배 속도 개선
 ### Spatial Pyramid Pooling
 - BoW(Bag of Word)라는 개념을 사용한 것인데, 간단하게 말하자면 특정 개체의 분류에 '굵은 소수'의 특징이 아닌 '작은 다수'의 특징에 의존
 - Spatial pyramid Matching 이라는 개념 사용<br>
