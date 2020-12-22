@@ -37,6 +37,7 @@
 **이미지넷으로 학습된 CNN을 가지고와서, Object Detection용 데이터 셋으로 fine tuning 한 뒤, selective search 결과로 뽑힌 이미지들로부터 특징 벡터 추출**
 
 #### 세번째 -1 stage, Classification
+- N+1 개의 class로 구성되어 있음 (+1은 배경을 뜻함)
 CNN을 통해 추출한 벡터를 각각 클래스 별로 SVM Classifier를 학습시킴
 "그냥 CNN Classifier를 쓰는 것이 SVM을 썼을 때보다 mAP성능이 낮아짐. 이는 아마도 fine tuning 과정에서 물체의 위치 정보가 유실되고 무작위로 추출된 샘플을 학습하여 발생한 것으로 보임"
 
