@@ -173,7 +173,7 @@ bin의 갯수: M <br>
 - R-CNN과 같은 학습 파이프라인을 가지고 있기 때문에 multi-stage로 학습이 진행 (fine-tuning, SVM training, Bounding Box Regression) // end-to-end 방식이 아님
   - 저장공간을 요구
   - 학습이 여전히 느림
-- 여전히 최종 classification은 binary SVM, Region Proposal은 Selective Search 사용
+- 여전히 최종 classification은 binary SVM, Region Proposal은 Selective Search(Rule base 알고리즘) 사용
   - SPP Pooling 이후에도 2천개의 RoI에 대해서 classification 연산을 적용하는 부분은 동일하게 적용
 - CNN의 파라미터가 학습이 되지 않기 때문에 Task에 맞는 fine-tuning이 어려워짐 // pretrained model
 
