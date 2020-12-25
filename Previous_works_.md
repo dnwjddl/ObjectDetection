@@ -1,7 +1,7 @@
 # R-CNN
 
 ## RCNN은 CNN을 본격적으로 이용하여 Object Detection에서 높은 성능을 보임
-전반적인 R-CNN의 workflow
+전반적인 R-CNN의 workflow<br>
 ![image](https://user-images.githubusercontent.com/72767245/102717097-76253b80-4323-11eb-88bf-31440ac348ce.png)
 
 ### R-CNN의 학습과정
