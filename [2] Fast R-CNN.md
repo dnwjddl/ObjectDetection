@@ -3,7 +3,7 @@
   - Fine-Tuning
   - SVM training 
   - Bounding Box Regression
--여전히 최종 classification은 binary SVM, Region Proposal은 Selective Search(Rule based)사용
+- 여전히 최종 classification은 binary SVM, Region Proposal은 Selective Search(Rule based)사용
   - SPP Pooling 이후에도 2천개의 RoI에 대해 classification 연산을 적용해야 됨
 - CNN의 파라미터가 학습이 되지 않기 때문에 Task에 맞는 fine-tuning 불가
 
