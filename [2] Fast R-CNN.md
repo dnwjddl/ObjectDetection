@@ -55,22 +55,22 @@ Conv feature map 생성 > 각 RoI에 대해 feature map으로 부터 고정된 �
 feature vector로 classification와 bounding box regression을 적용하여 각각의 loss을 얻어내고, 이를 back propagation하여 전체모델을 학습<br>
 이때, classification loss와 bounding box regression을 적절하게 엮어주는 것이 필요 > **multi task loss**라 함.
 <br>
-<img align="center" src="https://user-images.githubusercontent.com/72767245/103218284-f1a76e00-495d-11eb-8ba9-4c093ce08c51.png" width="20%">
+<img align="center" src="https://user-images.githubusercontent.com/72767245/103218284-f1a76e00-495d-11eb-8ba9-4c093ce08c51.png" width="40%">
 
 #### 입력 값들 설명
 입력으로는 p는 softmax를 통해서 얻어낸 K+1(K object + 1 배경)개의 확률 값, u는 해당 RoI의 ground Truth 라벨의 값
-<br><img align="center" src="https://user-images.githubusercontent.com/72767245/103218500-7f835900-495e-11eb-82ca-d25b770ab0b7.png" width="20%">
+<br><img align="center" src="https://user-images.githubusercontent.com/72767245/103218500-7f835900-495e-11eb-82ca-d25b770ab0b7.png" width="20%"><br>
 bounding box regression을 적용하면 이는 K+1개의 class에 대해서 각각 x,y,w,h값을 조정하는 t^k를 리턴 <br>
 (RoI가 사람일 경우 박스를 이렇게 조절해라, 고양이일 경우 이렇게 조절해라 라는 값을 return) <br>
 Loss Function에서는 이 값들 가운데 ground truth 라벨에 해당하는 값만 가져오며, 이는 t^u에 해당 <br>
 v는 ground truth bounding box 조절 값에 해당<br>
-<img align="center" src="https://user-images.githubusercontent.com/72767245/103218528-932ebf80-495e-11eb-877f-a26ceb74d6c6.png" width="20%">
+<img align="center" src="https://user-images.githubusercontent.com/72767245/103218528-932ebf80-495e-11eb-877f-a26ceb74d6c6.png" width="17%">
 
 ##### classification loss
 p와 u를 사용하여 classification loss을 구함
-<img align="center" src="https://user-images.githubusercontent.com/72767245/103218556-a3469f00-495e-11eb-8484-1ffd32083e87.png" width="20%">
+<img align="center" src="https://user-images.githubusercontent.com/72767245/103218556-a3469f00-495e-11eb-8484-1ffd32083e87.png" width="22%">
 ##### Bounding Box Regression loss
-<img align="center" src="https://user-images.githubusercontent.com/72767245/103218570-afcaf780-495e-11eb-9949-ffc6f88b0de7.png" width="20%">
+<img align="center" src="https://user-images.githubusercontent.com/72767245/103218570-afcaf780-495e-11eb-9949-ffc6f88b0de7.png" width="40%">
 ##### 정답 라벨에 해당하는 BBR 예측 값과 ground truth 조절 값을 받음 
-<img align="center" src="https://user-images.githubusercontent.com/72767245/103218581-b8233280-495e-11eb-99a0-ebebd996a209.png" width="20%">
+<img align="center" src="https://user-images.githubusercontent.com/72767245/103218581-b8233280-495e-11eb-99a0-ebebd996a209.png" width="40%">
 
