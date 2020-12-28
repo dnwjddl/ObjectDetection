@@ -22,8 +22,6 @@
 ###### SPPNet과 다른 점: step별로 쪼개어 학습을 진행하지 않고 end-to-end 방식임
 
 ![image](https://user-images.githubusercontent.com/72767245/103206715-d88fc480-493f-11eb-8320-0e33c67a3f85.png)
-
-![image](https://user-images.githubusercontent.com/72767245/103206745-e34a5980-493f-11eb-9e74-418da0f3b198.png)
 1-1. 전체 이미지를 미리 학습된 CNN을 통과시켜 feature map 추출 <br>
 1-2. Selective Search을 통해 RoI 찾음 <br>
 2. Selective Search로 찾았던 RoI를 **feature map크기에 맞춰서 projection(RoI projection)** 시킴 <br>
@@ -31,6 +29,8 @@
 4. feature vector는 fully-connected Layer를 고쳐 두개의 branch로 나뉘어진다. <br>
 5-1. softmax를 통과하여 해당 RoI가 어떤 물체인지 classification (SVM은 사용하지 않음)<br>
 5-2. bounding box regression을 통하여 selective search로 찾은 박스의 위치 조정<br>
+
+![image](https://user-images.githubusercontent.com/72767245/103206745-e34a5980-493f-11eb-9e74-418da0f3b198.png)
 
 Conv feature map 생성 > 각 RoI에 대해 feature map으로 부터 고정된 길이의 벡터 출력 > FC층을 지나 각 RoI에 대한 softmax 확률값과 class별 bounding box regression offsets 출력
 
