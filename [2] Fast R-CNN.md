@@ -50,3 +50,25 @@ Conv feature map 생성 > 각 RoI에 대해 feature map으로 부터 고정된 �
 위 작업을 통해 feature map에 투영했던 hxw크기의 RoI는 HxW크기의 고정된 feature vector로 변환된다.<br>
 
 ###### 원래 이미지를 CNN 통과시킨 후 나온 Feature map에 이전에 생성한 RoI를 projection시키고 이 RoI를 FC layer input 크기에 맞게 고정된 크기로 변형 가능 >> 따라서, 2000번 이상의 CNN연산이 필요하지 않고 1번의 CNN 연산으로 속도를 줄일 수 있다.
+
+### Multi Task Loss
+feature vector로 classification와 bounding box regression을 적용하여 각각의 loss을 얻어내고, 이를 back propagation하여 전체모델을 학습<br>
+이때, classification loss와 bounding box regression을 적절하게 엮어주는 것이 필요 > **multi task loss**라 함.
+<br>
+
+#### 입력 값들 설명
+입력으로는 p는 softmax를 통해서 얻어낸 K+1(K object + 1 배경)개의 확률 값, u는 해당 RoI의 ground Truth 라벨의 값
+<br>
+bounding box regression을 적용하면 이는 K+1개의 class에 대해서 각각 x,y,w,h값을 조정하는 t^k를 리턴 <br>
+(RoI가 사람일 경우 박스를 이렇게 조절해라, 고양이일 경우 이렇게 조절해라 라는 값을 return) <br>
+Loss Function에서는 이 값들 가운데 ground truth 라벨에 해당하는 값만 가져오며, 이는 t^u에 해당 <br>
+v는 ground truth bounding box 조절 값에 해당<br>
+
+##### classification loss
+p와 u를 사용하여 classification loss을 구함
+
+##### Bounding Box Regression loss
+
+##### 정답 라벨에 해당하는 BBR 예측 값과 ground truth 조절 값을 받음 
+
+
