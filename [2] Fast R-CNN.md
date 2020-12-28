@@ -20,6 +20,10 @@
 
 ### 전체 흐름
 ###### SPPNet과 다른 점: step별로 쪼개어 학습을 진행하지 않고 end-to-end 방식임
+
+![image](https://user-images.githubusercontent.com/72767245/103206715-d88fc480-493f-11eb-8320-0e33c67a3f85.png)
+
+![image](https://user-images.githubusercontent.com/72767245/103206745-e34a5980-493f-11eb-9e74-418da0f3b198.png)
 1-1. 전체 이미지를 미리 학습된 CNN을 통과시켜 feature map 추출 <br>
 1-2. Selective Search을 통해 RoI 찾음 <br>
 2. Selective Search로 찾았던 RoI를 **feature map크기에 맞춰서 projection(RoI projection)** 시킴 <br>
@@ -32,13 +36,14 @@ Conv feature map 생성 > 각 RoI에 대해 feature map으로 부터 고정된 �
 
 
 ### RoI pooling
+![image](https://user-images.githubusercontent.com/72767245/103206758-e9403a80-493f-11eb-8f28-cb47ca386b92.png)
 입력 이미지를 CNN을 거쳐서 **Feature map**을 추출한다.<br>
 그 후 이전에 미리 Selective Search로 만들어놨던 **RoI(=Region proposal)을 feature map에 projection**시킴 <br>
 추출된 feature map을 미리 정해놓은 H x W 크기에 맞게끔 그리드를 설정 <br>
 각각의 칸 별로 가장 큰 값을 추출하는 **max pooling을 실시**하면 결과값은 항상 H x W크기의 feature map이 되고, **이를 펼쳐서 feature vector을 추출**하게 됨
 이러한 RoI pooling을 Spatial Pyramid Pooling에서 피라미드 레벨이 1인 경우와 동일
 
-<br><br>
+<br>
 
 (1) 미리 설정한 HxW크기로 만들어주기 위해서 (h/H) * (w/H) 크기만큼 grid를 RoI위에 만든다. <br>
 (2) RoI를 grid크기로 split시킨 뒤 max pooling을 적용시켜 결국 각 grid 칸마다 하나의 값을 추출한다. <br>
