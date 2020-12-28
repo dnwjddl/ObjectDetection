@@ -70,7 +70,8 @@ v는 ground truth bounding box 조절 값에 해당<br>
 p와 u를 사용하여 classification loss을 구함
 <img align="center" src="https://user-images.githubusercontent.com/72767245/103218556-a3469f00-495e-11eb-8484-1ffd32083e87.png" width="22%">
 ##### Bounding Box Regression loss
-<img align="center" src="https://user-images.githubusercontent.com/72767245/103218570-afcaf780-495e-11eb-9949-ffc6f88b0de7.png" width="40%">
+<img align="center" src="https://user-images.githubusercontent.com/72767245/103218570-afcaf780-495e-11eb-9949-ffc6f88b0de7.png" width="40%"><br>
+
 ##### 정답 라벨에 해당하는 BBR 예측 값과 ground truth 조절 값을 받음 
 <img align="center" src="https://user-images.githubusercontent.com/72767245/103218581-b8233280-495e-11eb-99a0-ebebd996a209.png" width="40%">
 
