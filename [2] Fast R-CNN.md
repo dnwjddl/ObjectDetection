@@ -90,6 +90,12 @@ x,y,w,h 각각에 대해서 예측 값과 라벨 값의 차이를 계산한 다�
   - 회귀의 경우, bounding box regression값을 출력
     - 두 출력에 대한 ground truth를 u,v로 봄
 
+## Fine-tuning for detection
+detection을 위해서 Fast R-CNN은 R-CNN&SPPNet의 region-wise sampling이 아닌 hierarchical sampling을 사용<br>
+따라서 N개의 이미지를 미리 뽑고 그 중 R개의 RoI를 뽑아서 학습이 사용<br>
+N = 2, R = 128응 사용  -> 약 64배의 빠른 학습이 가능<br>
+수직적 구조로 인해 수렴이 늦어질수도 있지만 학습 결과 수렴 속도에 큰 영향을 미치지 않는다는 것이 언급<br>
+무엇보다도 Fast R-CNN은 최종 classifier와 regression까지 단방향 단계인 single stage로 fine-tuning이 가능하다는 장점을 갖음
 
 ### Backpropagation through RoI Pooling Layer
 
