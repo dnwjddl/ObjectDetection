@@ -36,7 +36,7 @@ Conv feature map 생성 > 각 RoI에 대해 feature map으로 부터 고정된 �
 
 
 ### RoI pooling
-![image](https://user-images.githubusercontent.com/72767245/103206758-e9403a80-493f-11eb-8f28-cb47ca386b92.png)
+![image](https://user-images.githubusercontent.com/72767245/103206758-e9403a80-493f-11eb-8f28-cb47ca386b92.png) <br>
 입력 이미지를 CNN을 거쳐서 **Feature map**을 추출한다.<br>
 그 후 이전에 미리 Selective Search로 만들어놨던 **RoI(=Region proposal)을 feature map에 projection**시킴 <br>
 추출된 feature map을 미리 정해놓은 H x W 크기에 맞게끔 그리드를 설정 <br>
