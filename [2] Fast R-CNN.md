@@ -83,6 +83,14 @@ x,y,w,h 각각에 대해서 예측 값과 라벨 값의 차이를 계산한 다�
 - Object Detection 테스크에 맞추어 loss function을 custom하는 것으로 볼 수 있다.
 - 라벨 값과 차이가 지나치게 차이가 많이 나는 outlier 에측값들이 발생하였고, 이들을 그대로 L2 distance로 계산하여 적용할 경우 gradient가 explode해버리는 현상이 발생 -> 이를 방지하기 위해 smoothL1 distance 추가
 
+## 최종 손실 함수
+![image](https://user-images.githubusercontent.com/72767245/103233950-bcad1280-4981-11eb-9f63-866a77ddb003.png)<br>
+- Fast R-CNN은 두개의 출력층
+  - 분류의 경우, 각 RoI별 클래스에 속할 사후 확률 값을 출력
+  - 회귀의 경우, bounding box regression값을 출력
+    - 두 출력에 대한 ground truth를 u,v로 봄
+
+
 ### Backpropagation through RoI Pooling Layer
 
 ### Initializing from pre-trained networks
