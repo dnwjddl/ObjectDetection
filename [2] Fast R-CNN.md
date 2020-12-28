@@ -19,14 +19,14 @@
 
 
 ### 전체 흐름
-- 1-1. 전체 이미지를 미리 학습된 CNN을 통과시켜 feature map 추출
-- 1-2. Selective Search을 통해 RoI 찾음
-- 2. Selective Search로 찾았던 RoI를 feature map크기에 맞춰서 projection 시킴
-- 3. projection 시킨 RoI에 대해 RoI Pooling 진행
-  - 그 결과 고정된 크기의 feature vector 추출
-- 4. feature vector는 fully-connected Layer를 고쳐 두개의 branch로 나뉘어진다.
-- 5-1. softmax를 통과하여 해당 RoI가 어떤 물체인지 classification (SVM은 사용하지 않음)
-- 5-2. bounding box regression을 통하여 selective search로 찾은 박스의 위치 조정
+1-1. 전체 이미지를 미리 학습된 CNN을 통과시켜 feature map 추출 <br>
+1-2. Selective Search을 통해 RoI 찾음 <br>
+2. Selective Search로 찾았던 RoI를 feature map크기에 맞춰서 projection 시킴 <br>
+3. projection 시킨 RoI에 대해 RoI Pooling 진행 <br>
+  - 그 결과 고정된 크기의 feature vector 추출 <br>
+4. feature vector는 fully-connected Layer를 고쳐 두개의 branch로 나뉘어진다. <br>
+5-1. softmax를 통과하여 해당 RoI가 어떤 물체인지 classification (SVM은 사용하지 않음)<br>
+5-2. bounding box regression을 통하여 selective search로 찾은 박스의 위치 조정<br>
 
 Conv feature map 생성 > 각 RoI에 대해 feature map으로 부터 고정된 길이의 벡터 출력 > FC층을 지나 각 RoI에 대한 softmax 확률값과 class별 bounding box regression offsets 출력
 
