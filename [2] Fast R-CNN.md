@@ -51,6 +51,10 @@ Conv feature map 생성 > 각 RoI에 대해 feature map으로 부터 고정된 �
 
 ###### 원래 이미지를 CNN 통과시킨 후 나온 Feature map에 이전에 생성한 RoI를 projection시키고 이 RoI를 FC layer input 크기에 맞게 고정된 크기로 변형 가능 >> 따라서, 2000번 이상의 CNN연산이 필요하지 않고 1번의 CNN 연산으로 속도를 줄일 수 있다.
 
+###### RoI는 직사각형 모양을 띄며 (x,y,h,w)의 튜플 형태로 정의
+- (x,y) : 위, 왼쪽 코너를 의미
+- (h,w) : 높이와 너비
+
 ### Multi Task Loss
 feature vector로 classification와 bounding box regression을 적용하여 각각의 loss을 얻어내고, 이를 back propagation하여 전체모델을 학습<br>
 이때, classification loss와 bounding box regression을 적절하게 엮어주는 것이 필요 > **multi task loss**라 함.
@@ -66,12 +70,26 @@ Loss Function에서는 이 값들 가운데 ground truth 라벨에 해당하는 
 v는 ground truth bounding box 조절 값에 해당<br>
 <img align="center" src="https://user-images.githubusercontent.com/72767245/103218528-932ebf80-495e-11eb-877f-a26ceb74d6c6.png" width="21%">
 
-##### classification loss
-p와 u를 사용하여 classification loss을 구함
+##### classification loss(p와 u를 사용하여 classification loss)
 <img align="center" src="https://user-images.githubusercontent.com/72767245/103218556-a3469f00-495e-11eb-8484-1ffd32083e87.png" width="22%">
-##### Bounding Box Regression loss
+##### Bounding Box Regression loss(Bounding box regression을 통해 얻은 loss)
 <img align="center" src="https://user-images.githubusercontent.com/72767245/103218570-afcaf780-495e-11eb-9949-ffc6f88b0de7.png" width="40%"><br>
 
-##### 정답 라벨에 해당하는 BBR 예측 값과 ground truth 조절 값을 받음 
-<img align="center" src="https://user-images.githubusercontent.com/72767245/103218581-b8233280-495e-11eb-99a0-ebebd996a209.png" width="40%">
+##### 입력으로는 정답 라벨에 해당하는 BBR 예측 값과 ground truth 조절 값을 받음
+x,y,w,h 각각에 대해서 예측 값과 라벨 값의 차이를 계산한 다음, smoothL1라는 함수를 통과시킨 합을 계산합니다. <br>
+<img align="center" src="https://user-images.githubusercontent.com/72767245/103218581-b8233280-495e-11eb-99a0-ebebd996a209.png" width="40%"><br>
+
+- 예측값과 라벨 값의 차가 1보다 작거나 크거나에 따라서 L1 distance 계산
+- Object Detection 테스크에 맞추어 loss function을 custom하는 것으로 볼 수 있다.
+- 라벨 값과 차이가 지나치게 차이가 많이 나는 outlier 에측값들이 발생하였고, 이들을 그대로 L2 distance로 계산하여 적용할 경우 gradient가 explode해버리는 현상이 발생 -> 이를 방지하기 위해 smoothL1 distance 추가
+
+### Backpropagation through RoI Pooling Layer
+
+### Initializing from pre-trained networks
+각각 5개의 max pooling layer와 5~13개의 conv layer를 가진 네트워크이며 Fast R-CNN에 적용되면서 크게 3가지 변화가 생김 <br>
+- 1. max pooling layer는 첫 fc layer와 호환되는 RoI pooling layer로 대체
+- 2. 네트워크 마지막의 fc layer와 softmax는 앞서 언급한 바와 같이 2개의 서로 다른 layer로 대체 
+- 3. 네트워크는 이미지와 region proposal 두개의 입력을 받을 수 있도록 수정
+
+
 
