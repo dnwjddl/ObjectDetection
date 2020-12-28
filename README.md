@@ -1,8 +1,9 @@
 # ObjectDetection  
 To study Object Detection 
 
-## STUDY
-- R-CNN, SPPNet, Fast R-CNN, Faster R-CNN 에 대한 이론 공부
+## STUDY [이론공부]
+-[1] R-CNN SPPNet.md
+-[2] Fast R-CNN Faster R-CNN.md
 
 ## SSD
 [SSD:Single Box MultiBox Detector](https://arxiv.org/pdf/1512.02325.pdf, "paper link")
