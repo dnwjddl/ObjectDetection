@@ -24,6 +24,9 @@ RPN은 Selective Search가 2000개의 RoI를 계산하는 데 반해 800개 정�
 ## RPN (Region Proposal Network)
 
 ### RPN 동작 방법
+
+![image](https://user-images.githubusercontent.com/72767245/103482832-68dd7600-4e26-11eb-90fd-bc3d9cb3d1b7.png)
+
 1. **CNN**을 통해 뽑아낸 **feature Map**을 입력으로 받는다. (H x W x C)
 2. feature map에 **3x3 convolution을 256 혹은 512 채널만큼 수행**  
 intermediate layer 수행 결과: H x W x 256 or H x W x 512 크기의 **두번째 feature Map**을 얻음  
