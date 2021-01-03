@@ -1,5 +1,5 @@
 # Faster R-CNN
-Selective Search를 사용하여 계산해왔던 Region Proposal 단계를 Neural Network 안으로:  ```end-to-end object Detection``` <br>
+Selective Search를 사용하여 계산해왔던 Region Proposal 단계를 Neural Network 안으로:  ```end-to-end object Detection```  
 모든 단계 합쳐서 5fps라는 빠른 속도. Pascal VOC(Dataset) 기준으로 78.8%의 성능
 
  <br>
