@@ -27,8 +27,8 @@ RPN은 Selective Search가 2000개의 RoI를 계산하는 데 반해 800개 정�
 1. **CNN**을 통해 뽑아낸 **feature Map**을 입력으로 받는다. (H x W x C)
 2. feature map에 **3x3 convolution을 256 혹은 512 채널만큼 수행**  
 intermediate layer 수행 결과: H x W x 256 or H x W x 512 크기의 **두번째 feature Map**을 얻음
-###### 이때 padding을 1로 설정하여 H x W 가 보존될 수 있도록 해줌 
-
+###### 이때 padding을 1로 설정하여 H x W 가 보존될 수 있도록 해줌  
+  
 3. 두번째 feature map을 입력받아서 classification과 bounding box regression 예측 값을 계산  
   ✔ Fully Connected Layer가 아니라 1x1 컨볼루션을 이용하여 계산하는 Fully Convolution Network의 특징을 갖음
   ✔ 입력 이미지의 크기에 상관없이 동작할 수 있도록 하기 위함
