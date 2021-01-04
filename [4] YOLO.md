@@ -12,4 +12,6 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
   - (x,y,w,h)로 나타내어 지는데 (x, y)는 bounding box의 중심점 좌표. w,h는 넓이와 높이
   - 해당 박스의 신뢰도를 나타내는 Confidence를 계산
   
-  $ P_{r}(Object) * IOU_{truthpred} $
+  $ P_{r}(Object) * IOU_{truthpred} $  
+  
+$f(x) = x^2$
