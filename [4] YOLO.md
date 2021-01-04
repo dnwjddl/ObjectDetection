@@ -11,7 +11,4 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 - 2. 각 그리드 영역에서 먼저 물체가 있을 만한 영역에 해당하는 B개의 Bounding Box를 예측
   - (x,y,w,h)로 나타내어 지는데 (x, y)는 bounding box의 중심점 좌표. w,h는 넓이와 높이
   - 해당 박스의 신뢰도를 나타내는 Confidence를 계산
-
-$$
-y=ax+b
-$$
+    해당 그리드에 물체가 있을 확률 ```Pr(Object)```와 예측한 박스와 Ground Truth 박스와의 겹치는 영역을 비율로 나타내는 ```IoU``` 곱하여 계산
