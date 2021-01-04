@@ -26,3 +26,5 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 
 - 예) 만약 x가 grid cell의 가장 왼쪽에 있다면 x=0, y가 grid cell 중간에 있다면 y=0.5
 - 예) bbox의 width가 이미지 width의 절반이라면 w=0.5
+
+![image](https://user-images.githubusercontent.com/72767245/103536453-e3190380-4ed5-11eb-9ae1-c5c06579f880.png)
