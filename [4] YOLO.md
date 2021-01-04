@@ -18,6 +18,7 @@ R-CNN은 이미지에서 일정한 규칙으로 이미지를 여러장 쪼개서
 Fast R-CNN이 0.5fps의 성능을 가진 반면 ```YOLO```는 45fps의 성능을 가짐  
 이는 영상을 스트리밍 하면서 동시에 화면 상의 물체를 부드럽게 구분할 수 있다.  
 
+-------------------------------
 기존에 ```1) region proposal```, ```2)classification``` 두 단계로 나누어서 진행  
 region proposal 단계를 제거하고 한번에 Object Detection을 수행하는 구조를 갖는다  
 
