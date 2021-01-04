@@ -25,8 +25,8 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 ## Unified Detection
   <p align="center"><img src="https://user-images.githubusercontent.com/72767245/103547275-8a526680-4ee7-11eb-918a-44e48e2d38fd.png" width = 70%></p>
 
-1️⃣. 입력 이미지를 S X S 그리드 영역으로 나눔(실제 입력 이미지 아님)  
-2️⃣1️⃣. 각 그리드 영역에서 먼저 물체가 있을 만한 영역에 해당하는 B개의 **Bounding Box**를 예측  
+1️⃣) 입력 이미지를 S X S 그리드 영역으로 나눔(실제 입력 이미지 아님)  
+2️⃣1️⃣) 각 그리드 영역에서 먼저 물체가 있을 만한 영역에 해당하는 B개의 **Bounding Box**를 예측  
   - (x,y,w,h)로 나타내어 지는데 (x, y)는 bounding box의 중심점 좌표. w,h는 넓이와 높이
   - 해당 박스의 신뢰도를 나타내는 Confidence를 계산(cell에 object가 존재하지 않는다면 confidence score은 0이 됨)
   
@@ -37,7 +37,7 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 - 바운딩 박스 B는 X, Y좌표, 가로, 세로 크기 정보와 Confidence Score 수치를 가지고 있음 
 - Score는 B가 물체를 영역으로 잡고 있는지와 클래스를 잘 예측하였는지를 나타냄
 
-2️⃣2️⃣. 각각의 그리드마다 C개의 클래스에 대하여 해당 클래스일 확률(**Conditional Class Probability**)을 계산  
+2️⃣2️⃣) 각각의 그리드마다 C개의 클래스에 대하여 해당 클래스일 확률(**Conditional Class Probability**)을 계산  
 (기존의 Object Detection은 클래스 수 + 1(배경)을 넣어 Classification하지만 yolo는 불가능)  
 <br>
 
@@ -49,6 +49,10 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 ✔ **Class Probability**
   - 그리드 셀 안에 있는 그림의 분류 확률
 
-3️⃣. 최종적으로 클래스 조건부 확률 C와 각 바운딩 박스의 Confidence예측값을 곱하면 각 박스의 클래스 별 Confidence Score의 수치를 구할 수 있음
+3️⃣) 최종적으로 클래스 조건부 확률 C와 각 바운딩 박스의 Confidence예측값을 곱하면 각 박스의 클래스 별 Confidence Score의 수치를 구할 수 있음
 
 ![image](https://user-images.githubusercontent.com/72767245/103536453-e3190380-4ed5-11eb-9ae1-c5c06579f880.png)
+
+
+## Network
+
