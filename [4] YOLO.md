@@ -27,21 +27,29 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 
 
  1. 입력 이미지를 S X S 그리드 영역으로 나눔(실제 입력 이미지 아님)
- 2. 각 그리드 영역에서 먼저 물체가 있을 만한 영역에 해당하는 B개의 Bounding Box를 예측
+ 2-1. 각 그리드 영역에서 먼저 물체가 있을 만한 영역에 해당하는 B개의 **Bounding Box**를 예측
   - (x,y,w,h)로 나타내어 지는데 (x, y)는 bounding box의 중심점 좌표. w,h는 넓이와 높이
   - 해당 박스의 신뢰도를 나타내는 Confidence를 계산(cell에 object가 존재하지 않는다면 confidence score은 0이 됨)
+  
+해당 그리드에 물체가 있을 확률 ```Pr(Object)``` 와 예측한 박스와 Ground Truth 박스와의 겹치는 영역을 비율로 나타내는 ```IoU``` 곱하여 계산  
   <p align="center"><img src="https://user-images.githubusercontent.com/72767245/103531915-96c9c580-4ecd-11eb-949f-e85dc95b8529.png" width = 30%></p>
     
-해당 그리드에 물체가 있을 확률 ```Pr(Object)``` 와 예측한 박스와 Ground Truth 박스와의 겹치는 영역을 비율로 나타내는 ```IoU``` 곱하여 계산
+✔ **Bounding Box**
+- 바운딩 박스 B는 X, Y좌표, 가로, 세로 크기 정보와 Confidence Score 수치를 가지고 있음 
+- Score는 B가 물체를 영역으로 잡고 있는지와 클래스를 잘 예측하였는지를 나타냄
 
-
- 3. 각각의 그리드마다 C개의 클래스에 대하여 해당 클래스일 확률(**Conditional Class Probability**)을 계산  
+2-2. 각각의 그리드마다 C개의 클래스에 대하여 해당 클래스일 확률(**Conditional Class Probability**)을 계산  
 (기존의 Object Detection은 클래스 수 + 1(배경)을 넣어 Classification하지만 yolo는 불가능)  
 <br>
 
 <p align="center"><img src="https://user-images.githubusercontent.com/72767245/103534761-dd6dee80-4ed2-11eb-84df-c8300b273326.png" width = 30%></p>
 
 - 예) 만약 x가 grid cell의 가장 왼쪽에 있다면 x=0, y가 grid cell 중간에 있다면 y=0.5
-- 예) bbox의 width가 이미지 width의 절반이라면 w=0.5
+- 예) bbox의 width가 이미지 width의 절반이라면 w=0.5  
+
+✔ **Class Probability**
+  - 그리드 셀 안에 있는 그림의 분류 확률
+
+3. 최종적으로 클래스 조건부 확률 C와 각 바운딩 박스의 Confidence예측값을 곱하면 각 박스의 클래스 별 Confidence Score의 수치를 구할 수 있음
 
 ![image](https://user-images.githubusercontent.com/72767245/103536453-e3190380-4ed5-11eb-9ae1-c5c06579f880.png)
