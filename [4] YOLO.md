@@ -1,7 +1,22 @@
 # YOLO(You Only Look Once)
+**"You Only Look Once: Unified, Real-Time Object Detection (2016)"**
 
-- Faster R-CNN보다 6배 빠른 속도를 가지고옴
-- 1 step Object Detection 기법 제시
+- ```YOLO```는 지도학습
+- Pascal VOC dataset 사용 | 물체에 대한 클래스(C), 위치 정보(X,Y(기준점은 물체의 정중앙을 말함),Width, Height)
+
+## YOLO의 세가지 특징
+### You Only Look Once: 이미지 전체를 단 한번만 본다  
+R-CNN은 이미지에서 일정한 규칙으로 이미지를 여러장 쪼개서 CNN 모델을 통과 시키기 때문에 한장의 이미지에서 객체 탐지를 수행해도 실제로 수천장의 모델을 통과 시키게 됨  
+```YOLO```는 이미지 전체를 말 그대로 단 한번만 본다
+
+### Unified: 통합된 모델을 사용
+다른 객체 탐지 모델들은 다양항 전처리 모델과 인공신경망을 결합하여 사용  
+```YOLO```는 단하나의 인공신경망에서 이를 전부 처리 (1step Object Detection)
+
+### Real-Time Object Detection: 실시간 객체 탐지
+```YOLO```가 성능이 좋은 객체 탐지 모델은 아니지만, 실시간으로 여러장의 이미지를 탐지할 수 있다  
+Fast R-CNN이 0.5fps의 성능을 가진 반면 ```YOLO```는 45fps의 성능을 가짐  
+이는 영상을 스트리밍 하면서 동시에 화면 상의 물체를 부드럽게 구분할 수 있다.  
 
 기존에 ```1) region proposal```, ```2)classification``` 두 단계로 나누어서 진행  
 region proposal 단계를 제거하고 한번에 Object Detection을 수행하는 구조를 갖는다  
