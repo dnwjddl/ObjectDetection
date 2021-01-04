@@ -15,4 +15,6 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
   - 해당 박스의 신뢰도를 나타내는 Confidence를 계산  
   <p align="center"><img src="https://user-images.githubusercontent.com/72767245/103531915-96c9c580-4ecd-11eb-949f-e85dc95b8529.png" width = 30%></p>
     
+ 3. 각각의 그리드마다 C개의 클래스에 대하여 해당 클래스일 확률을 계산  
+(기존의 Object Detection은 클래스 수 + 1(배경)을 넣어 Classification하지만 yolo는 불가능)  
     해당 그리드에 물체가 있을 확률 ```Pr(Object)``` 와 예측한 박스와 Ground Truth 박스와의 겹치는 영역을 비율로 나타내는 ```IoU``` 곱하여 계산
