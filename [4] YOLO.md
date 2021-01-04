@@ -108,21 +108,35 @@ Pre-trained Network에서 학습한 feature를 이용하여 Class Probability와
 ## 성능(Performance)
 ![image](https://user-images.githubusercontent.com/72767245/103566497-7158ae00-4f05-11eb-9f89-d26e43400fda.png)
 
+# YOLO v1의 한계점
+- YOLO의 접근법은 객체 탐지 모델의 FPS를 높였지만 작은 물체에 대해서는 탐지가 잘 되지 않음 
+  -이유: Loss Function에서 바운딩 박스 후보군을 선정할 때 적절한 사물이 큰 객체는 바운딩 박스간의 IoU의 값이 크게 차이 나기 때문에 적절한 후보군을 선택할 수 있지만, 작은 사물에 대해서는 약간의 차이가 IoU의 결과값을 뒤집을 수 있기 때문
+- BBox의 형태가 training data를 통해서만 학습이 되므로 새로운 BBox의 경우 정확한 예측을 할 수 없다
+- 몇단계의 layer를 거쳐 나온 feature map을 대응으로 BBox를 예측하므로 localization이 부정확
 
 # YOLO v2
 **"YOLO9000: Better, Faster, Stronger"**  
 YOLOv1이 20개의 이미지를 분류하는 모델을 소개했다면 v2는 9000개의 이미지를 탐지하면서 분류할 수 있는 모델 개발  
 Batch Normalization, Direct Location Prediction, Multi-Scale Training 기법을 도입하여 FPS와 mAP를 높임  
 
+- **Batch Normalization** 적용: Dropout Layer은 제거(mAP 2%증가)
+- **High Resolution Classifier**: 기존 해상도를 높여서 흐릿하게 만듦 > Object Detection 학습 전에 Image Classification 모델을 큰 해상도 이미지에 대해서 fine-tuning 함으로써 해결(mAP 4%증가)
+- **Convolution With Anchor Boxes**: Fully connected Layer을 떼어내고 Fully Convolutional Network 형태, Anchor Box 개념 도입, 최종적으로 7x7x30크기의 feature map을 얻어냄(7x7는 입력이미지를 그리드 단위로 나눔. 각 그리드 별 30차원 벡터는 5차원 벡터(x,y,w,h,p(확률))로 표기된 박스 2개와 20개의 클래스에 대한 스코어 값)  
+Anchor Box 개념 적용하여 학습 안정화
+- **Dimension Cluster**: 앵커 박스의 핵심은 크기와 비율이 모두 결정되어 있는 박스를 전제하고, 학습을 통하여 이 박스의 위치나 크기를 세부 조정하는 것. yolo v2는 여기에 learning algorithm을 적용
+K-means clustering을 적용
+- **Direct Location Prediction**: 결정된 앵커 박스에 따라서 하나의 셀에서 5차원 벡터로 이루어진 바운딩 박스를 예측.  
+박스의 차원은 같지만 담고 있는 정보는 다르다. (tx, ty, tw, th, to)를 학습을 통하여 예측하게 되며, 이를 아래와 같은 방식을 적용하여 bounding box를 구함  
+기존의 yolo가 그리드의 중심점을 예측하였다면, yolov2에서는 left top 꼭지점으로부터 얼만큼 이동하는 지를 예측
+
+- **Fine-Grained Features**: 작은 물체에 대한 정보가 사라진다  
+yolo v2에서는 상위 레이어의 피처맵을 하위 피처맵에 합쳐주는 passthrough layer을 도입
+
+- **Multi-Scale Training**: 작은 물체들을 잘 잡아내주기 위하여 yolo v2는 여러 스케일의 이미지를 학습할 수 있도록 하였다. 
+
 # YOLO v3
 ResNet의 Residual Block이 v2버전에서는 존재하지 않음  
 레이어 신경망 층이 최근에 나온 연구보다는 상대적으로 얇았는데, v3에서는 이 기법을 사용하여 106개의 신경망 층을 구성
-
-# YOLO v1의 한계점
-- YOLO의 접근법은 객체 탐지 모델의 FPS를 높였지만 작은 물체에 대해서는 탐지가 잘 되지 않음 
-  -이유: Loss Function에서 바운딩 박스 후보군을 선정할 때 적절한 사물이 큰 객체는 바운딩 박스간의 IoU의 값이 크게 차이 나기 때문에 적절한 후보군을 선택할 수 있지만, 작은 사물에 대해서는 약간의 차이가 IoU의 결과값을 뒤집을 수 있기 때문
-- BBox의 형태가 training data를 통해서만 학습이 되므로 새로운 BBox의 경우 정확한 예측을 할 수 없다
-- 몇단계의 layer를 거쳐 나온 feature map을 대응으로 BBox를 예측하므로 localization이 부정확
 
 
 https://yeomko.tistory.com/19?category=888201  
