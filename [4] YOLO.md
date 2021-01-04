@@ -54,5 +54,34 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 ![image](https://user-images.githubusercontent.com/72767245/103536453-e3190380-4ed5-11eb-9ae1-c5c06579f880.png)
 
 
-## Network
+## Network [Pre-trained Network, Training Network, Reduction Layer]
+
+전체 네트워크 디자인과 손실함수에 대한 소개
+![image](https://user-images.githubusercontent.com/72767245/103548557-511af600-4ee9-11eb-879b-721bb3881c4d.png)
+
+**24개의 Convolutional Layer(Conv Layer)과 2개의 Fully-Connected Layer(FC layer)**
+
+### Pre-trained Network
+GoogLeNet을 이용하여 ImageNet 1000 class dataset을 사전에 학습한 결과를 Fine-Tuning한 네트워크
+이 네트워크는 20개의 Conv Layer로 구성
+
+88%의 정확도를 사전에 학습하였다
+
+본래 ImageNet의 데이터 셋은 224x224의 크기를 가진 이미지 데이터이지만, 어째서인지 객체 감지를 학습할 때는 선명한 이미지보다는 경계선이 흐릿한 이미지가 더 학습이 잘된다고 하여 Scale Factor를 2로 설정하여 이미지를 키워 448x448x3이 이미지를 입력 데이터로 받음
+
+
+### Reduction Layer
+Conv Layer를 통과할때 사용하는 Filter연산이 수행시간을 많이 잡아 먹기 때문에 무작정 네트워크를 깊게 쌓기에는 부담  
+이를 해결하기 위하여 ResNet과 GoogLeNet등의 기법이 제안됨. GoogLeNet의 기법을 응용하여 연산량은 감소하면서 층은 깊게 쌓는 방식을 이용함
+
+
+### Training Network
+Pre-trained Network에서 학습한 feature를 이용하여 Class Probability와 Bounding box를 학습하고 예측하는 네트워크
+
+### Loss Function (3가지 원칙)
+✔ 이미지를 분류하는 classifier 문제를 bounding box를 만드는 regression문제로 생각
+✔ 바운딩 박스를 잘 그렸는지 평가하는 Localization Error와 박스안의 물체를 잘 분류했는지 평가하는 Classification Error의 패널티를 다르게 평가. 특히 박스안의 물체가 없는 경우에는 Confidence Score를 0으로 만들기 위해 Localication Error에 더 높은 패널티를 부과
+✔ 많은 바운딩 박스 중에 IoU수치가 가장 높게 생성된 바운딩 박스만 학습에 참여. 이는 바운딩 박스를 잘 만드는 셀은 더욱 학습을 잘하도록 높은 Confidence Score를 주고 나머지 셀은 바운딩 박스를 잘 만들지 못하더라도 나중에 Non-max suppression을 통해 최적화하기 위함
+
+
 
