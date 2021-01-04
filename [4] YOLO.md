@@ -103,3 +103,21 @@ Pre-trained Network에서 학습한 feature를 이용하여 Class Probability와
 
 
 ## 성능(Performance)
+![image](https://user-images.githubusercontent.com/72767245/103566497-7158ae00-4f05-11eb-9f89-d26e43400fda.png)
+
+
+# YOLO v2
+**"YOLO9000: Better, Faster, Stronger"**  
+YOLOv1이 20개의 이미지를 분류하는 모델을 소개했다면 v2는 9000개의 이미지를 탐지하면서 분류할 수 있는 모델 개발  
+Batch Normalization, Direct Location Prediction, Multi-Scale Training 기법을 도입하여 FPS와 mAP를 높임  
+
+# YOLO v3
+ResNet의 Residual Block이 v2버전에서는 존재하지 않음  
+레이어 신경망 층이 최근에 나온 연구보다는 상대적으로 얇았는데, v3에서는 이 기법을 사용하여 106개의 신경망 층을 구성
+
+# YOLO v1의 한계점
+- YOLO의 접근법은 객체 탐지 모델의 FPS를 높였지만 작은 물체에 대해서는 탐지가 잘 되지 않음 
+  -이유: Loss Function에서 바운딩 박스 후보군을 선정할 때 적절한 사물이 큰 객체는 바운딩 박스간의 IoU의 값이 크게 차이 나기 때문에 적절한 후보군을 선택할 수 있지만, 작은 사물에 대해서는 약간의 차이가 IoU의 결과값을 뒤집을 수 있기 때문
+- YOLO가 데이터를 제공받고 바운딩 박스를 학습하기 때문에 사물이란 무엇인지, 그리고 이상한 비율로 되어있는 물체라던지, 일반화된 지식이 있어야 구별할 수 있는 학습은 하지 못함
+
+
