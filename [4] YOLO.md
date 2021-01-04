@@ -79,9 +79,23 @@ Conv Layer를 통과할때 사용하는 Filter연산이 수행시간을 많이 �
 Pre-trained Network에서 학습한 feature를 이용하여 Class Probability와 Bounding box를 학습하고 예측하는 네트워크
 
 ### Loss Function (3가지 원칙)
-✔ 이미지를 분류하는 classifier 문제를 bounding box를 만드는 regression문제로 생각
-✔ 바운딩 박스를 잘 그렸는지 평가하는 Localization Error와 박스안의 물체를 잘 분류했는지 평가하는 Classification Error의 패널티를 다르게 평가. 특히 박스안의 물체가 없는 경우에는 Confidence Score를 0으로 만들기 위해 Localication Error에 더 높은 패널티를 부과
-✔ 많은 바운딩 박스 중에 IoU수치가 가장 높게 생성된 바운딩 박스만 학습에 참여. 이는 바운딩 박스를 잘 만드는 셀은 더욱 학습을 잘하도록 높은 Confidence Score를 주고 나머지 셀은 바운딩 박스를 잘 만들지 못하더라도 나중에 Non-max suppression을 통해 최적화하기 위함
+❔ 이미지를 분류하는 classifier 문제를 bounding box를 만드는 regression문제로 생각  
+❕ **Sum-Squared Error(SSD) 이용**  
+❔ 바운딩 박스를 잘 그렸는지 평가하는 Localization Error와 박스안의 물체를 잘 분류했는지 평가하는 Classification Error의 패널티를 다르게 평가. 특히 박스안의 물체가 없는 경우에는 Confidence Score를 0으로 만들기 위해 Localication Error에 더 높은 패널티를 부과  
+❕ λ_coord 과 λ_noobj 두개의 변수를 이용 (본 논문에서는 λ_coord = 5, λ_noobj = 0.5로 설정)  
+❔ 많은 바운딩 박스 중에 IoU수치가 가장 높게 생성된 바운딩 박스만 학습에 참여. 이는 바운딩 박스를 잘 만드는 셀은 더욱 학습을 잘하도록 높은 Confidence Score를 주고 나머지 셀은 바운딩 박스를 잘 만들지 못하더라도 나중에 Non-max suppression을 통해 최적화하기 위함
+
+|변수| 설명 |
+|:----:|:----------:|
+|S|그리드 셀의 크기를 의미. 행렬이기 때문에 전체 그리드 셀의 크기는 S^2|
+|B|S_i 셀의 바운딩 박스를 의미|
+|x,y,w,h|바운딩 박스의 좌표 및 크기를 의미|
+|C|각 그리드 셀이 구분한 클래스와 같음|
+|1번|5로 설정된 λ_coord 변수로서 Localization에러에 5배 더 높은 패널티를 부여하기 위해서 사용|
+|2번|if문과 동일한 역할. i번째 셀의 j번 바운딩 박스만을 학습하겠다는 의미로 사용. 하지만 모든 셀에 대해서 바운딩 박스 학습이 일어나지 않고 각 객체마다 IoU가 가장 높은 바운딩 박스인 경우에만 패널티를 부과해서 학습을 더 잘하도록 유도|
+
+
+![image](https://user-images.githubusercontent.com/72767245/103561553-0c995580-4efd-11eb-8238-386b5b5701b8.png)
 
 
 
