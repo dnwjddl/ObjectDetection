@@ -25,8 +25,8 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 ## Unified Detection
   <p align="center"><img src="https://user-images.githubusercontent.com/72767245/103547275-8a526680-4ee7-11eb-918a-44e48e2d38fd.png" width = 70%></p>
 
-1️⃣) 입력 이미지를 S X S 그리드 영역으로 나눔(실제 입력 이미지 아님)  
-2️⃣1️⃣) 각 그리드 영역에서 먼저 물체가 있을 만한 영역에 해당하는 B개의 **Bounding Box**를 예측  
+1️⃣ 입력 이미지를 S X S 그리드 영역으로 나눔(실제 입력 이미지 아님)  
+2️⃣1️⃣ 각 그리드 영역에서 먼저 물체가 있을 만한 영역에 해당하는 B개의 **Bounding Box**를 예측  
   - (x,y,w,h)로 나타내어 지는데 (x, y)는 bounding box의 중심점 좌표. w,h는 넓이와 높이
   - 해당 박스의 신뢰도를 나타내는 Confidence를 계산(cell에 object가 존재하지 않는다면 confidence score은 0이 됨)
   
@@ -37,7 +37,7 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 - 바운딩 박스 B는 X, Y좌표, 가로, 세로 크기 정보와 Confidence Score 수치를 가지고 있음 
 - Score는 B가 물체를 영역으로 잡고 있는지와 클래스를 잘 예측하였는지를 나타냄
 
-2️⃣2️⃣) 각각의 그리드마다 C개의 클래스에 대하여 해당 클래스일 확률(**Conditional Class Probability**)을 계산  
+2️⃣2️⃣ 각각의 그리드마다 C개의 클래스에 대하여 해당 클래스일 확률(**Conditional Class Probability**)을 계산  
 (기존의 Object Detection은 클래스 수 + 1(배경)을 넣어 Classification하지만 yolo는 불가능)  
 <br>
 
@@ -49,7 +49,8 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 ✔ **Class Probability**
   - 그리드 셀 안에 있는 그림의 분류 확률
 
-3️⃣) 최종적으로 클래스 조건부 확률 C와 각 바운딩 박스의 Confidence예측값을 곱하면 각 박스의 클래스 별 Confidence Score의 수치를 구할 수 있음
+3️⃣ 최종적으로 클래스 조건부 확률 C와 각 바운딩 박스의 Confidence예측값을 곱하면 각 박스의 클래스 별 Confidence Score의 수치(**class specific confidence score**)를 구할 수 있음
+
 
 ![image](https://user-images.githubusercontent.com/72767245/103536453-e3190380-4ed5-11eb-9ae1-c5c06579f880.png)
 
@@ -120,6 +121,10 @@ ResNet의 Residual Block이 v2버전에서는 존재하지 않음
 # YOLO v1의 한계점
 - YOLO의 접근법은 객체 탐지 모델의 FPS를 높였지만 작은 물체에 대해서는 탐지가 잘 되지 않음 
   -이유: Loss Function에서 바운딩 박스 후보군을 선정할 때 적절한 사물이 큰 객체는 바운딩 박스간의 IoU의 값이 크게 차이 나기 때문에 적절한 후보군을 선택할 수 있지만, 작은 사물에 대해서는 약간의 차이가 IoU의 결과값을 뒤집을 수 있기 때문
-- YOLO가 데이터를 제공받고 바운딩 박스를 학습하기 때문에 사물이란 무엇인지, 그리고 이상한 비율로 되어있는 물체라던지, 일반화된 지식이 있어야 구별할 수 있는 학습은 하지 못함
+- BBox의 형태가 training data를 통해서만 학습이 되므로 새로운 BBox의 경우 정확한 예측을 할 수 없다
+- 몇단계의 layer를 거쳐 나온 feature map을 대응으로 BBox를 예측하므로 localization이 부정확
 
 
+https://yeomko.tistory.com/19?category=888201  
+https://medium.com/curg/you-only-look-once-%EB%8B%A4-%EB%8B%A8%EC%A7%80-%ED%95%9C-%EB%B2%88%EB%A7%8C-%EB%B3%B4%EC%95%98%EC%9D%84-%EB%BF%90%EC%9D%B4%EB%9D%BC%EA%B5%AC-bddc8e6238e2  
+https://curt-park.github.io/2017-03-26/yolo/  
