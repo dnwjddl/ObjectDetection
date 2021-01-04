@@ -61,6 +61,8 @@ region proposal 단계를 제거하고 한번에 Object Detection을 수행하�
 
 **24개의 Convolutional Layer(Conv Layer)과 2개의 Fully-Connected Layer(FC layer)**
 
+- 20개의 컨볼루션 레이어는 고정, 뒷 단의 4개의 레이어만 object Detection 테스크에 맞게 학습
+
 ### Pre-trained Network
 **GoogLeNet**을 이용하여 ImageNet 1000 class dataset을 사전에 학습한 결과를 Fine-Tuning한 네트워크 (88%의 정확도)
 이 네트워크는 **20개의 Conv Layer**로 구성  
