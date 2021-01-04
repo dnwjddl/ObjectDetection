@@ -23,8 +23,8 @@ Fast R-CNN이 0.5fps의 성능을 가진 반면 ```YOLO```는 45fps의 성능을
 region proposal 단계를 제거하고 한번에 Object Detection을 수행하는 구조를 갖는다  
 
 ## Unified Detection
+  <p align="center"><img src="https://user-images.githubusercontent.com/72767245/103547275-8a526680-4ee7-11eb-918a-44e48e2d38fd.png" width = 50%></p>
 
-![image](https://user-images.githubusercontent.com/72767245/103547275-8a526680-4ee7-11eb-918a-44e48e2d38fd.png)
 
  1. 입력 이미지를 S X S 그리드 영역으로 나눔(실제 입력 이미지 아님)
  2. 각 그리드 영역에서 먼저 물체가 있을 만한 영역에 해당하는 B개의 Bounding Box를 예측
