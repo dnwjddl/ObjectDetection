@@ -79,6 +79,8 @@ Conv Layer를 통과할때 사용하는 Filter연산이 수행시간을 많이 �
 ### Training Network
 Pre-trained Network에서 학습한 feature를 이용하여 Class Probability와 Bounding box를 학습하고 예측하는 네트워크
 
+#### 최종적으로 7x7x30크기의 feature map을 얻어냄(7x7는 입력이미지를 그리드 단위로 나눔. 각 그리드 별 30차원 벡터는 5차원 벡터(x,y,w,h,p(확률))로 표기된 박스 2개와 20개의 클래스에 대한 스코어 값)  
+
 ### Loss Function (3가지 원칙)
 ❔ 이미지를 분류하는 classifier 문제를 bounding box를 만드는 regression문제로 생각  
 ❕❕ **Sum-Squared Error(SSD) 이용**  
