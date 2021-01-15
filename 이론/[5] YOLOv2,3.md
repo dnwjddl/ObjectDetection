@@ -4,7 +4,7 @@
 
 ## BETTER
 
-```Anchor Box``` -> ```Bounding Box``` -> ```Confidence```
+```Anchor Box``` -> ```Bounding Box```
 
 1. BN 적용 (Dropout Layer 제거)
 2. 높은 해상도 이미지로 백본 CNN 네트워크 fine tune(기존 yolo는 VGG모델 가지고 옴)
