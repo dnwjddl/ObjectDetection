@@ -1,4 +1,21 @@
 ### 결과값
+
+![image](https://user-images.githubusercontent.com/72767245/104844285-c12a7280-5912-11eb-986e-5b49a645cc3d.png)
+
+#### 최종결과값에 대한 설명
+```torch.Size([1, 10647, 85])```  
+세개 다른 scale 의 output tensor 합친 값 + 80(class 갯수) + 5(위치+confidence값)  
+
+```torch.Size([random, 8])```  
+
+- 8개의 속성
+  - 1. batch 에서 이미지 인덱스
+  - 2~5. 꼭지점의 왼위, 오아 좌표
+  - 6 Objectness 점수
+  - 7. Maximum confidence를 가진 class 점수
+  - 8. 그 class의 index 값
+
+
 ![image](https://user-images.githubusercontent.com/72767245/104838191-a0efb900-58fc-11eb-9837-0612d74e3946.png)
 
 - ```Darknet53.py``` : DarkNet-53 Layer 제작
