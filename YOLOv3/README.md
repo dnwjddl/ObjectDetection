@@ -1,8 +1,8 @@
-### 결과값
+## 결과값
 
 ![image](https://user-images.githubusercontent.com/72767245/104844285-c12a7280-5912-11eb-986e-5b49a645cc3d.png)
 
-#### 최종결과값에 대한 설명
+### 최종결과값에 대한 설명
 ```torch.Size([1, 10647, 85])```  
 세개 다른 scale 의 output tensor 합친 값 + 80(class 갯수) + 5(위치+confidence값)  
 
