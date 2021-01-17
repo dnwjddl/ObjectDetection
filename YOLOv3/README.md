@@ -56,6 +56,25 @@ ignore_thresh = .5
 truth_thresh = 1
 random=1
 ```
+
+```c
+[net]
+# Testing
+batch=1
+subdivisions=1
+# Training
+# batch=64
+# subdivisions=16
+width= 320
+height = 320
+channels=3
+momentum=0.9
+decay=0.0005
+angle=0
+saturation = 1.5
+exposure = 1.5
+hue=.1
+```
 ```python
 labels = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", \
               "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", \
