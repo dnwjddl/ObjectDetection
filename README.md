@@ -22,11 +22,11 @@
 </div>
 
 ## YOLOv3
-- [yolov3_anchor](https://github.com/dnwjddl/ObjectDetection/blob/main/YOLOv3/yolov3_anchor.py)
+- [yolov3_anchor.py](https://github.com/dnwjddl/ObjectDetection/blob/main/YOLOv3/yolov3_anchor.py)
   - bounding box 추가하여 Yolov3 model 구현
-- [darknet-53](https://github.com/dnwjddl/ObjectDetection/blob/main/YOLOv3/darknet53.py)
+- [darknet-53.py](https://github.com/dnwjddl/ObjectDetection/blob/main/YOLOv3/darknet53.py)
   - model 내에 darknet-53 구현
-- [utils](https://github.com/dnwjddl/ObjectDetection/blob/main/YOLOv3/utils.py)
+- [utils.py](https://github.com/dnwjddl/ObjectDetection/blob/main/YOLOv3/utils.py)
   - 모델 구현에 필요로 하는 helper 함수들
   - IoU, NMS등 구현 (class 추출)
 
