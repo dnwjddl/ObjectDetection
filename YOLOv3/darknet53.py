@@ -66,18 +66,10 @@ class Darknet53(nn.Module):
         out = self.conv3(out)
         print("Conv3:",out.shape)
         out = self.residual_block2(out)
-        out = self.residual_block2(out)
         print("Res2:",out.shape)
 
         out = self.conv4(out)
         print("Conv4:",out.shape)
-        out = self.residual_block3(out)
-        out = self.residual_block3(out)
-        out = self.residual_block3(out)
-        out = self.residual_block3(out)
-        out = self.residual_block3(out)
-        out = self.residual_block3(out)
-        out = self.residual_block3(out)
         out = self.residual_block3(out)
 
         feature_map3 = out
@@ -86,21 +78,11 @@ class Darknet53(nn.Module):
         out = self.conv5(out)
         print("Conv5:",out.shape)
         out = self.residual_block4(out)
-        out = self.residual_block4(out)
-        out = self.residual_block4(out)
-        out = self.residual_block4(out)
-        out = self.residual_block4(out)
-        out = self.residual_block4(out)
-        out = self.residual_block4(out)
-        out = self.residual_block4(out)
         feature_map2 = out
         print("**feature_map2**:",feature_map2.shape)
 
         out = self.conv6(out)
         print("Conv6:",out.shape)
-        out = self.residual_block5(out)
-        out = self.residual_block5(out)
-        out = self.residual_block5(out)
         out = self.residual_block5(out)
         feature_map1 = out
         print("**feature_map1**:",feature_map1.shape)
