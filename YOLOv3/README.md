@@ -1,3 +1,6 @@
+### 결과값
+![image](https://user-images.githubusercontent.com/72767245/104838191-a0efb900-58fc-11eb-9837-0612d74e3946.png)
+
 - ```Darknet53.py``` : DarkNet-53 Layer 제작
 - ```[TEST] yolov3_architecture.py``` : Layer Model 제작
 
