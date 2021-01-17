@@ -87,3 +87,5 @@ labels = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", 
               "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink", "refrigerator", \
               "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush"]
 ```
+
+![image](https://user-images.githubusercontent.com/72767245/104836940-af39d700-58f4-11eb-8474-6c645968c2ee.png)
