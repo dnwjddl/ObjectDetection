@@ -21,6 +21,15 @@
   <img src ="https://user-images.githubusercontent.com/72767245/97295263-698be600-1892-11eb-952b-890975592614.png" width="35%">
 </div>
 
+## YOLOv3
+- [yolov3_anchor](https://github.com/dnwjddl/ObjectDetection/blob/main/YOLOv3/yolov3_anchor.py)
+  - bounding box 추가하여 Yolov3 model 구현
+- [darknet-53](https://github.com/dnwjddl/ObjectDetection/blob/main/YOLOv3/darknet53.py)
+  - model 내에 darknet-53 구현
+- [utils](https://github.com/dnwjddl/ObjectDetection/blob/main/YOLOv3/utils.py)
+  - 모델 구현에 필요로 하는 helper 함수들
+  - IoU, NMS등 구현 (class 추출)
+
 ## cvYOLO
 - cvlib을 이용한 YOLO 사용
 - 총 80개의 class 식별 가능<br>
