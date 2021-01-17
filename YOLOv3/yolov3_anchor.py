@@ -6,6 +6,8 @@ from darknet53 import Darknet53
 from darknet53 import DarkResidualBlock
 from darknet53 import dbl
 
+from utils import *
+
 from anchor import Detection
 
 def dbl_block(in_channels, out_channels):
@@ -106,7 +108,9 @@ class YOLOv3(nn.Module):
         yolo_outputs = [output1, output2, output3]
         yolo_outputs = torch.cat(yolo_outputs, 1 ).detach()
 
-        return yolo_outputs
+        result = results(yolo_outputs, 0.5)
+
+        return yolo_outputs, result
 
     def load_weight(self, weightfile):
         #Open the weightfile
@@ -187,5 +191,15 @@ if __name__ == '__main__':
     input_image = torch.randn(1, 3, 416, 416, dtype=torch.float)
     model = YOLOv3(80)
     #model.load_weights("yolov3.weights")
-    output = model.forward(input_image)
-    print(output.shape) #torch.Size([1, 10647, 85])
+    output1, output2 = model.forward(input_image)
+    print(output1.shape) #torch.Size([1, 10647, 85])
+    print(output2.shape) #torch.Size([random, 8])
+
+    '''
+    # 8개의 속성
+    ## batch 에서 이미지 인덱스
+    ## 2~5 꼭지점 좌표
+    ## 6 objectness 점수
+    ## 7 maximum confidence 를 가진 class 점수
+    ## 8 그 class의 index
+    '''
