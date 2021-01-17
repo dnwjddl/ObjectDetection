@@ -1,5 +1,5 @@
-- ```DarkNet.py``` : DarkNet Layer 제작
-- ```YOLOv3_architecture.py``` : Layer Model 제작
+- ```Darknet53.py``` : DarkNet-53 Layer 제작
+- ```[TEST] yolov3_architecture.py``` : Layer Model 제작
 
 #### cfg 파일 (Configuration file)
 
@@ -14,7 +14,7 @@ wget https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg
 
 Configuration 파일을 열면
 
-```python
+```c
 [convolutional]
 batch_normalize=1
 filters=64
@@ -43,4 +43,16 @@ activation=leaky
 from=-3
 activation=linear
 ```
+저자의 cfg 파일을 토대로 ```yolov3_architecture.py``` 작성
 
+```c
+[yolo]
+mask = 0,1,2
+anchors = 10,13,  16,30,  33,23,  30,61,  62,45,  59,119,  116,90,  156,198,  373,326
+classes=80
+num=9
+jitter=.3
+ignore_thresh = .5
+truth_thresh = 1
+random=1
+```
