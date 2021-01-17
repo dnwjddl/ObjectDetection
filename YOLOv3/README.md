@@ -12,7 +12,7 @@ cd cfg
 wget https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg
 ```
 
-Configuration 파일을 열면
+**Configuration** 파일을 열면
 
 ```c
 [convolutional]
