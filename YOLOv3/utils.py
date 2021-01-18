@@ -3,7 +3,7 @@ utils.py
 yolov3을 진행하는 과정에서 필요한 helper 함수들을 정리
 - bbox_iou(box1, box2)
     - IoU 계산하여 two bounding boxes 반환
-- write_results(prediction, confidence, num_classes, nms_conf)
+- NMS(prediction, confidence, num_classes, nms_conf)
     - Objectness 점수와 thresholding과 non-maximal suppression과정을 거침
 - unique(tensor):
     - 같은 class 내에 여러개의 true detecion이 나올 수 있으므로 unique라는 함수를 만들어 주어진 이미지에 대해 중복되지 않은 class 가져옴
@@ -37,7 +37,7 @@ def bbox_iou(box1, box2):
 # num_classes: 80 COCO
 # nms_conf: NMS IoU threshold
 
-def results(prediction, confidence, nms_conf=0.4):
+def NMS(prediction, confidence, nms_conf=0.4):
 
     # prediction = torch.Size([1, 10647, 85])
     # prediction[:,:,4] 의 값은: tensor([[0.5970, 0.6153, 0.5694,  ..., 0.4194, 0.4677, 0.4085]])
