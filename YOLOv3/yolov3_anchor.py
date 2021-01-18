@@ -108,7 +108,7 @@ class YOLOv3(nn.Module):
         yolo_outputs = [output1, output2, output3]
         yolo_outputs = torch.cat(yolo_outputs, 1 ).detach()
 
-        result = results(yolo_outputs, 0.5)
+        result = NMS(yolo_outputs, 0.5)
 
         return yolo_outputs, result
 
