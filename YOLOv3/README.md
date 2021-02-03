@@ -2,6 +2,8 @@
 - cfg 파일과 weight을 사용하여 물체 감지
   - ```yolo.py```: 사진 객체 감지
   - ```yolo_video.py``` : 웹캠을 사용하여 실시간 객체 감지
+- weight 다운로드
+  - https://pjreddie.com/media/files/yolov3.weights
 
 ## 결과값 
 
