@@ -1,3 +1,8 @@
+### ```yolo_cfg```폴더
+- cfg 파일과 weight을 사용하여 물체 감지
+  - ```yolo.py```: 사진 객체 감지
+  - ```yolo_video.py``` : 웹캠을 사용하여 실시간 객체 감지
+
 ## 결과값 
 
 ![image](https://user-images.githubusercontent.com/72767245/104844285-c12a7280-5912-11eb-986e-5b49a645cc3d.png)
