@@ -7,7 +7,10 @@
 
 ---
 ### ```train.py```
-학습된 model은 checkpoint에 시간마다 저장됨
+학습된 model은 checkpoint에 시간마다 저장된다.
+ex)
+![image](https://user-images.githubusercontent.com/72767245/108292384-5604e200-71d7-11eb-9c32-3e3ba74b3329.png)
+
 
 ### ```Model```폴더
 - YOLOv3 직접 구현한 model
