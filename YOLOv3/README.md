@@ -7,7 +7,7 @@
 
 ---
 ### ```train.py```
-학습된 model은 checkpoint에 시간마다 저장된다.
+학습된 model은 checkpoint에 시간마다 저장된다. <br>
 ex)
 ![image](https://user-images.githubusercontent.com/72767245/108292384-5604e200-71d7-11eb-9c32-3e3ba74b3329.png)
 
