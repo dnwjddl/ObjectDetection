@@ -6,6 +6,9 @@
   - https://pjreddie.com/media/files/yolov3.weights
 
 ---
+### ```train.py```
+학습된 model은 checkpoint에 시간마다 저장됨
+
 ### ```Model```폴더
 - YOLOv3 직접 구현한 model
 
