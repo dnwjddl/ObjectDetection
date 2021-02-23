@@ -61,12 +61,12 @@
 ---
 
 ```Ground Truth Box``` : 우리가 예측해야 하는 정답 박스 <br>
-```Predicted Box``` : Extra Network의 5x5의 feature map에서 output(predicted box)을 위해 conv 연산을 하면 총 5x5x(6x(21+4))값 형성(= grid cell x grid cell x (# of bb) x (class + offset))
-```Defaulte Box``` : 5x5 feature map은 각 셀당 6개의 default box를 가지고 있음
+```Predicted Box``` : Extra Network의 5x5의 feature map에서 output(predicted box)을 위해 conv 연산을 하면 총 5x5x(6x(21+4))값 형성(= grid cell x grid cell x (# of bb) x (class + offset)) <br>
+```Defaulte Box``` : 5x5 feature map은 각 셀당 6개의 default box를 가지고 있음 <br>
 
 - default box의 w, h는 feature map의 scale에 따라 서로 다른 s 값과 서로 다른 aspect ratio인 a 값을 이용해 도출
 - default box의 cx와 cy는 feature map size와 index에 따라 결정
-
+<br>
 default box와 ground Truth Box 간의 IOU를 계산하여 0.5이상의 값들은 1(positive), 아닌 값들은 0으로 할당.
 > 예를 들어, 그림과 같이 5x5의 feature map의 13번째 셀(가운데)에서 총 6개의 default box와 predicted bounding box가 있는데, 같은 순서로 매칭되어 loss를 계산한다. 매칭된(x=1, positive) default box와 같은 순서의 predicted bounding box에 대해서만 offset 에 대한 loss를 고려한다.
 
