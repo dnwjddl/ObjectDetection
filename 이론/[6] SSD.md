@@ -62,7 +62,7 @@
 
 ```Ground Truth Box``` : 우리가 예측해야 하는 정답 박스 <br>
 ```Predicted Box``` : Extra Network의 5x5의 feature map에서 output(predicted box)을 위해 conv 연산을 하면 총 5x5x(6x(21+4))값 형성(= grid cell x grid cell x (# of bb) x (class + offset)) <br>
-```Defaulte Box``` : 5x5 feature map은 각 셀당 6개의 default box를 가지고 있음 <br>
+```Default Box``` : 5x5 feature map은 각 셀당 6개의 default box를 가지고 있음 <br>
 
 - default box의 w, h는 feature map의 scale에 따라 서로 다른 s 값과 서로 다른 aspect ratio인 a 값을 이용해 도출
 - default box의 cx와 cy는 feature map size와 index에 따라 결정
