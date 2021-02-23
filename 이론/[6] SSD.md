@@ -86,20 +86,62 @@ VGG를 통과하며 얻은 Feature map을 대상으로 컨볼루션을 계속 �
 
 ![image](https://user-images.githubusercontent.com/72767245/108804860-cea5dd00-75e1-11eb-8e28-082649f9c8ef.png)
 
-하나의 그리드마다 크기가 각기 다른 Default Box들을 계산 (Default Box: Faster R-CNN에서 anchor의 개념으로 비율과 크기가 각기 다른 기본 박스들을 먼저 설정해두어 Bounding box를 추론하는데 도움이 되는 장치)  
-
+하나의 그리드마다 크기가 각기 다른 Default Box들을 계산 
+<br>
+(```Default Box```: Faster R-CNN에서 anchor의 개념으로 비율과 크기가 각기 다른 기본 박스들을 먼저 설정해두어 Bounding box를 추론하는데 도움이 되는 장치)  
+<br>
 **Default Box**  
 ![image](https://user-images.githubusercontent.com/72767245/108804984-2d6b5680-75e2-11eb-8be3-b7e6ece81c9e.png)
 
 - 고양이는 작은 물체, 강아지는 큰 물체
 - 높은 해상도의 feature map에서는 작은 물체를 잘 잡아내고, 낮은 해상도에서는 큰물체를 잘 잡아냄
 - 각각의 Feature map을 가져와서 비율과 크기가 각기 다른 Default Box를 투영함
-- 이렇게 찾아낸 박스들에 Bounding box regression을 적용하고 Confidence level을 계산
+- 이렇게 찾아낸 박스들에 ```Bounding box regression```을 적용하고 ```Confidence level```을 계산
 - **YOLO**에서는 아무런 기본 값 없이 2개의 box를 예측하겠금 한다
+<br>
+**Convolution** <br>
+- feature map에 3x3 컨볼루션을 적용하여(padding = 1, 크기 보존) bounding box regression 값을 계산
+- default box들의 x, y, w, h의 조절 값을 나타내므로 4차원 벡터
+- 인덱스 하나에 3개의 default box를 적용하였으므로 결과 feature map의 크기는 5x5x12 <br>
+- 
+**Classification**<br>
+- 각각의 default box마다 모든 클래스에 대하여 Classification 진행
+- 총 20개의 class +1 (배경 클래스) x default box 수이므로 최종 feature결과의 크기는 5x5x63 이 된다.
+- 1 Step end-to-end Object Detection
+
+---
+
+#### Generate Default Box 
+
+ 
+![image](https://user-images.githubusercontent.com/72767245/108811131-06b41c80-75f0-11eb-9f6d-dd58f4b2bf50.png)
 
 
+---
 ### Training Objective
 
+전체 로스는 각 클래스 별로 예측한 값과 실제 값 사이의 차인 Lconf와 바운딩 박스 리그레션 예측 값과 실제 값 사이의 차인 Lloc를 더한 값<br>
+
+![image](https://user-images.githubusercontent.com/72767245/108811197-2b0ff900-75f0-11eb-9c1e-be858919d8ce.png)
+
+**Lconf**<br>
+- cross entropy Loss
+- 모델이 물체가 있다고 판별한 default box들 가운데서 해당 박스의 ground truth 박스하고만 cross entropy loss를 구한다
+- 물체가 없다고 판별한 default box들 중에 물체가 있을 경우의 loss를 계산
+
+![image](https://user-images.githubusercontent.com/72767245/108811223-37945180-75f0-11eb-92e3-db9af1060b4c.png)
+
+**Lloc**<br>
+- smoothL1은 Robust bounding box regression loss와 같음
+- bounding box regression시에 사용하는 예측값들
+-  x, y 좌표 값은 절대 값이기 때문에 예측값과 실제 값 사이의 차를 default 박스의 너비 혹은 높이로 나눔 (0과 1사이로 정규화 가능)
+  - 너비와 높이의 경우엔 로그를 씌워서 정규화 시킨 것  
+
+![image](https://user-images.githubusercontent.com/72767245/108811406-93f77100-75f0-11eb-8fb4-45ba0100dcab.png)
+
+
+
+---
 
 ### 결과
 - 속도, 정확도 측면에서 성능 SOTA 가 된 이유는
