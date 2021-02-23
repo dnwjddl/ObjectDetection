@@ -8,7 +8,7 @@
 - Yolo의 문제점은 입력 이미지를 7x7 크기의 그리드로 나누고, 각 그리드 별로 Bounding Box Prediction을 진행하기 때문에 그리드 크기보다 작은 물체를 잡아내지 못하는 문제
 - 신경망을 모두 통과하면서 컨볼루션과 풀링을 거쳐 coarse 한 정보만 남은 마지막 단 피쳐맵만 사용하기 때문에 정확도가 하락함
 
-### Multi Scale Feature Maps for Detection
+### Architecture
 
 ![image](https://user-images.githubusercontent.com/72767245/108737658-2c9cdb00-7576-11eb-9037-25665ea53338.png)
 
@@ -36,17 +36,40 @@
 
 ---
 
-#### Multi-scale Feature maps for detection
+#### [1] Multi-scale Feature maps for detection
 - 38x38, 19x19, 10x10, 5x5, 3x3, 1x1 의 feature map들을 의미
 - yolo는 7x7 grid 하나 뿐이지만 SSD는 전체 이미지를 여러 grid size로 나누고 output과 연겨 
 - 큰 feature map에서는 작은 물체 탐지, 작은 feature map에서는 큰 물체 탐지
 
 ---
 
-#### Convolutional predictiors for detection
+#### [2] Convolutional predictiors for detection
 - 이미지부터 최종 feature map까지는 Conv(3x3, s=2)로 연결
-- output과 연결된 feature map은 3x3xp 사이즈의 filter로 컨볼루션 연산
+- output과 연결된 feature map은 3x3xp 사이즈의 filter로 컨볼루션 연산 (yolo v1에서는 output 과 fully connected)
 - 예측된 output은 class, cateory 점수와 default box에 대응되는 offset을 구함
+
+---
+
+#### [3] Default boxes and aspect ratio
+```default bounding box```라는 것을 만들고 그 default box와 대응되는 자리에서 예측되는 박스의 offset과 per class scores를 예측
+- 6개의 피쳐맵(마지막 6개의 피쳐맵, Output과 직결된)은 각각 Conv(3x3x(#bb x (c + offset))) 연산을 통해 Output 형성
+- Ouput은 각 셀 당 ##bb개의 바운딩 박스를 예측
+
+![image](https://user-images.githubusercontent.com/72767245/108809847-0f572380-75ed-11eb-8499-540ec6359e3d.png)
+
+
+---
+
+```Ground Truth Box``` : 우리가 예측해야 하는 정답 박스 <br>
+```Predicted Box``` : Extra Network의 5x5의 feature map에서 output(predicted box)을 위해 conv 연산을 하면 총 5x5x(6x(21+4))값 형성(= grid cell x grid cell x (# of bb) x (class + offset))
+```Defaulte Box``` : 5x5 feature map은 각 셀당 6개의 default box를 가지고 있음
+
+- default box의 w, h는 feature map의 scale에 따라 서로 다른 s 값과 서로 다른 aspect ratio인 a 값을 이용해 도출
+- default box의 cx와 cy는 feature map size와 index에 따라 결정
+
+default box와 ground Truth Box 간의 IOU를 계산하여 0.5이상의 값들은 1(positive), 아닌 값들은 0으로 할당.
+> 예를 들어, 그림과 같이 5x5의 feature map의 13번째 셀(가운데)에서 총 6개의 default box와 predicted bounding box가 있는데, 같은 순서로 매칭되어 loss를 계산한다. 매칭된(x=1, positive) default box와 같은 순서의 predicted bounding box에 대해서만 offset 에 대한 loss를 고려한다.
+
 
 ---
 
@@ -73,4 +96,15 @@ VGG를 통과하며 얻은 Feature map을 대상으로 컨볼루션을 계속 �
 - 각각의 Feature map을 가져와서 비율과 크기가 각기 다른 Default Box를 투영함
 - 이렇게 찾아낸 박스들에 Bounding box regression을 적용하고 Confidence level을 계산
 - **YOLO**에서는 아무런 기본 값 없이 2개의 box를 예측하겠금 한다
+
+
+### Training Objective
+
+
+### 결과
+- 속도, 정확도 측면에서 성능 SOTA 가 된 이유는
+  - Output layer 와 FC 하지 않고 Conv를 이용(Weight 수 급감, 속도 증가)
+  - 여러 Feature map은 한 이미지를 다양한 grid로 접근하고 다양한 크기의 물체들을 detect 할 수 있게 함
+  - default boc 사용은 weight initialize와 normalize 효과를 동시에 가져 올 수 있을 듯
+  - 6개의 bounding box를 통해 겹치는 좌표의 다양한 물체 detect 가능
 
