@@ -139,7 +139,10 @@ VGG를 통과하며 얻은 Feature map을 대상으로 컨볼루션을 계속 �
 
 ![image](https://user-images.githubusercontent.com/72767245/108811406-93f77100-75f0-11eb-8fb4-45ba0100dcab.png)
 
+---
 
+- low level의 Object일 경우, layer을 충분히 거치지 못한 feature이기 때문에 좋은 결과가 안나옴
+- Data Augmentation을 통해서 해결을 함
 
 ---
 
