@@ -1,5 +1,5 @@
 # ObjectDetection   
-논문 분석 후 직접 코드 구현   
+논문 분석 후 직접 코드 구현    
 
 ## STUDY [이론공부]
 - [[1] R-CNN_SPPNet.md](https://github.com/dnwjddl/ObjectDetection/blob/main/%EC%9D%B4%EB%A1%A0/%5B1%5D%20R_CNN_SPPNet.md)<br>
